@@ -1,0 +1,69 @@
+/* Editor Output Layout styles */
+
+/* Editor with output container */
+.editor-with-output {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main editor layout with split panes */
+.flex-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* Editor code pane (left side) */
+.editor-code-pane {
+  flex: 3;  /* Give more space to the editor */
+  min-width: 0; /* Ensures flex items can shrink below content size */
+  width: auto; /* Allow width to adjust based on available space */
+  overflow: hidden;
+}
+
+/* Output pane (right side) */
+.editor-output-pane {
+  flex: 2;  /* Give less space to output */
+  min-width: 250px;
+  max-width: 35%; /* Limit width */
+  min-height: 400px;
+  border-left: 1px solid #e0e0e0;
+  overflow: hidden;
+}
+
+/* Dark mode support */
+.dark .editor-output-pane {
+  border-left: 1px solid #2d2d2d;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+  .flex-row {
+    flex-direction: column;
+  }
+  
+  .editor-code-pane,
+  .editor-code-pane,
+  .editor-output-pane {
+    width: 100%;
+    max-width: 100%;
+    height: 50%;
+  }
+  
+  .editor-output-pane {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+  }
+  
+  .dark .editor-output-pane {
+    border-top: 1px solid #2d2d2d;
+  }
+}

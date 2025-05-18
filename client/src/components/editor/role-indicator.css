@@ -1,0 +1,198 @@
+/* Role indicator styles */
+.read-only-editor {
+  position: relative;
+}
+
+/* Animation keyframes for notifications */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.5s ease forwards;
+}
+
+/* Notification banner positioning and styling */
+.role-mode-banner {
+  position: fixed;
+  top: 70px; /* Increased to ensure no navbar overlap across different screen sizes */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05);
+  max-width: 450px;
+  min-width: 280px;
+  animation: fadeInDown 0.3s ease forwards;
+  transition: all 0.2s ease;
+}
+
+/* Consistent role badge styling */
+.role-badge {
+  font-size: 0.75rem !important; /* Ensure consistent small text */
+  padding: 0.15rem 0.5rem !important;
+  line-height: 1.25 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+}
+
+.role-badge svg {
+  width: 0.9rem !important;
+  height: 0.9rem !important;
+}
+
+.read-only-editor .cursor {
+  display: none !important;
+}
+
+/* Custom cursor for read-only mode */
+.read-only-editor .monaco-editor .monaco-editor-background {
+  cursor: default !important;
+}
+
+/* Make text selection still work in read-only mode */
+.read-only-editor .monaco-editor .view-line {
+  cursor: text;
+}
+
+/* Visual indicator in sidebar when in view mode */
+.sidebar-indicator-view {
+  background-color: #f9a825;
+  width: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+.sidebar-indicator-edit {
+  background-color: #4caf50;
+  width: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+.sidebar-indicator-admin {
+  background-color: #1976d2;
+  width: 8px;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  opacity: 0.6;
+}
+
+/* Role mode status banner */
+.role-mode-banner {
+  padding: 8px 16px;
+  border-radius: 8px;
+  margin-bottom: 0;
+  font-size: 13px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 60px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
+  max-width: 450px;
+  min-width: 280px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  animation: fadeInDown 0.3s ease-out forwards;
+}
+
+.role-mode-banner svg {
+  margin-right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.role-mode-banner.view-mode {
+  background-color: #fff3e0;
+  color: #e65100;
+  box-shadow: 0 0 0 1px rgba(230, 81, 0, 0.2), 0 4px 12px rgba(230, 81, 0, 0.15);
+}
+
+.role-mode-banner.edit-mode {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  box-shadow: 0 0 0 1px rgba(46, 125, 50, 0.2), 0 4px 12px rgba(46, 125, 50, 0.15);
+}
+
+.role-mode-banner.admin-mode {
+  background-color: #e3f2fd;
+  color: #0d47a1;
+  box-shadow: 0 0 0 1px rgba(13, 71, 161, 0.2), 0 4px 12px rgba(13, 71, 161, 0.15);
+}
+
+/* Dark mode variants */
+.dark .role-mode-banner.view-mode {
+  background-color: rgba(230, 81, 0, 0.2);
+  color: #ffb74d;
+}
+
+.dark .role-mode-banner.edit-mode {
+  background-color: rgba(46, 125, 50, 0.2);
+  color: #81c784;
+}
+
+.dark .role-mode-banner.admin-mode {
+  background-color: rgba(13, 71, 161, 0.2);
+  color: #64b5f6;
+}
+
+.dark .read-only-editor::before {
+  background-color: rgba(255, 165, 0, 0.3);
+  color: #ffd54f;
+}
+
+/* Animation for the notification */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+.fade-out {
+  animation: fadeOut 0.3s forwards;
+}

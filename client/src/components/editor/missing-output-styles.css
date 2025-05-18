@@ -1,0 +1,141 @@
+/* Additional styles to fix output panel display */
+.output-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: auto;
+  padding: 12px;
+  height: calc(100% - 50px); /* Adjust for header height */
+}
+
+.execution-output {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: auto;
+}
+
+.output-section, .error-section {
+  margin-bottom: 12px;
+  overflow-wrap: break-word;
+}
+
+.output-section h4, .error-section h4 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.output-section pre, .error-section pre {
+  margin: 0;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  white-space: pre-wrap;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.dark .output-section pre {
+  background-color: #2d2d2d;
+}
+
+.dark .error-section pre {
+  background-color: #3c2323;
+}
+
+.initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+  color: #777;
+}
+
+.dark .initial-state {
+  color: #aaa;
+}
+
+.run-initial-btn {
+  margin-top: 12px;
+  padding: 6px 16px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.2s;
+}
+
+.run-initial-btn:hover {
+  background-color: #43a047;
+}
+
+.run-initial-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Fix tab appearance */
+.tab.active {
+  background-color: #e0e0e0;
+  color: #333;
+  font-weight: 500;
+}
+
+.dark .tab.active {
+  background-color: #3c3c3c;
+  color: #fff;
+}
+
+.tab:hover:not(.active) {
+  background-color: #f0f0f0;
+}
+
+.dark .tab:hover:not(.active) {
+  background-color: #333333;
+}
+
+/* Make sure the run button is visible */
+.run-code-btn {
+  padding: 4px 12px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.run-code-btn:hover {
+  background-color: #43a047;
+}
+
+.run-code-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Fix layout for mobile */
+@media (max-width: 768px) {
+  .editor-with-output {
+    flex-direction: column;
+  }
+  
+  .editor-code-pane,
+  .editor-output-pane {
+    max-width: 100%;
+    width: 100%;
+  }
+  
+  .editor-output-pane {
+    border-left: none;
+    border-top: 1px solid #e0e0e0;
+  }
+}

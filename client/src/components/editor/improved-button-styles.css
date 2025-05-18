@@ -1,0 +1,38 @@
+/* Improved button hover effects */
+.run-code-btn:hover {
+  background: linear-gradient(145deg, #0ea572, #10b981) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(5, 150, 105, 0.3), 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+.run-code-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(5, 150, 105, 0.2) !important;
+}
+
+.toggle-input-btn:hover {
+  background: linear-gradient(145deg, #1e40af, #2563eb) !important;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3), 0 1px 4px rgba(0, 0, 0, 0.15) !important;
+}
+
+.toggle-input-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(37, 99, 235, 0.2) !important;
+}
+
+/* Output panel specific styling */
+.output-panel {
+  border-left: 3px solid #2563eb;
+}
+
+/* Status item hover effect */
+.status-item {
+  transition: all 0.2s ease;
+}
+
+.status-item:hover {
+  background-color: rgba(30, 41, 59, 0.7);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}

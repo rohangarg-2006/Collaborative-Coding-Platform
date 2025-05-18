@@ -1,0 +1,313 @@
+/* Code Output Component Styles */
+.code-output-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  border-left: 1px solid #e0e0e0;
+  background-color: #f9f9f9;
+  overflow: hidden;
+}
+
+/* Dark theme support */
+.code-output-container.dark {
+  background-color: #1e1e1e;
+  border-left: 1px solid #2d2d2d;
+  color: #e0e0e0;
+}
+
+.output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: #f0f0f0;
+  width: 100%;
+  overflow: hidden;
+}
+
+.dark .output-header {
+  background-color: #252526;
+  border-bottom: 1px solid #3e3e42;
+}
+
+.output-tabs {
+  display: flex;
+  gap: 4px;
+}
+
+.tab {
+  padding: 6px 12px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-radius: 3px;
+  font-size: 0.9rem;
+  color: #555;
+  transition: background-color 0.2s;
+}
+
+.dark .tab {
+  color: #ccc;
+}
+
+.tab:hover {
+  background-color: rgba(0,0,0,0.05);
+}
+
+.dark .tab:hover {
+  background-color: rgba(255,255,255,0.05);
+}
+
+.tab.active {
+  background-color: rgba(0,0,0,0.1);
+  font-weight: 500;
+}
+
+.dark .tab.active {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.output-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.auto-execute-toggle {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.dark .auto-execute-toggle {
+  color: #ccc;
+}
+
+.auto-execute-toggle input {
+  margin-right: 5px;
+}
+
+.run-code-btn, .run-initial-btn {
+  padding: 6px 12px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.mode-toggle-btn {
+  padding: 6px 8px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-left: 8px;
+  font-size: 0.9rem;
+}
+
+.mock-mode-indicator {
+  background-color: #ff9800;
+  color: white;
+  border-radius: 3px;
+  padding: 4px 8px;
+  font-size: 0.75rem;
+  margin-right: 8px;
+}
+
+.run-code-btn:hover, .run-initial-btn:hover {
+  background-color: #45a049;
+}
+
+.run-code-btn:disabled, .run-initial-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+.output-content {
+  flex: 1;
+  overflow: auto;
+  padding: 15px;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.dark .output-content {
+  color: #e0e0e0;
+}
+
+.stdin-container {
+  height: 100%;
+}
+
+.stdin-input {
+  width: 100%;
+  height: 100%;
+  min-height: 100px;
+  resize: none;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  padding: 8px;
+  background-color: #fff;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+}
+
+.dark .stdin-input {
+  background-color: #2d2d2d;
+  color: #e0e0e0;
+  border-color: #3e3e42;
+}
+
+.execution-output {
+  min-height: 50px;
+  height: 100%;
+}
+
+.execution-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #666;
+  margin-bottom: 15px;
+}
+
+.dark .execution-status {
+  color: #ccc;
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 3px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #4CAF50;
+  animation: spin 1s ease-in-out infinite;
+}
+
+.dark .spinner {
+  border: 3px solid rgba(255, 255, 255, 0.1);
+  border-top-color: #4CAF50;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.output-section h4, .error-section h4 {
+  margin-top: 0;
+  margin-bottom: 6px;
+  color: #555;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.dark .output-section h4 {
+  color: #b3e5fc;
+}
+
+.dark .error-section h4 {
+  color: #ffcdd2;
+}
+
+.output-section pre, .error-section pre {
+  margin: 0;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 3px;
+  white-space: pre-wrap;
+  word-break: break-all;
+  max-height: 300px;
+  overflow: auto;
+}
+
+.dark .output-section pre {
+  background-color: #2d2d2d;
+  border-color: #3e3e42;
+}
+
+.error-section pre {
+  border-color: #ffcdd2;
+  background-color: #fff8f8;
+  color: #d32f2f;
+}
+
+.dark .error-section pre {
+  background-color: #331111;
+  border-color: #5e2929;
+  color: #f48fb1;
+}
+
+.execution-stats {
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-radius: 3px;
+  font-size: 0.85rem;
+}
+
+.dark .execution-stats {
+  background-color: #2a2a2a;
+}
+
+.stat {
+  margin-bottom: 5px;
+  display: flex;
+  gap: 5px;
+}
+
+.status-success {
+  color: #4CAF50;
+}
+
+.status-error {
+  color: #d32f2f;
+}
+
+.dark .status-success {
+  color: #81c784;
+}
+
+.dark .status-error {
+  color: #e57373;
+}
+
+.initial-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  min-height: 150px;
+  color: #757575;
+  text-align: center;
+}
+
+.dark .initial-state {
+  color: #a0a0a0;
+}
+
+.run-initial-btn {
+  margin-top: 15px;
+}
+
+.no-output {
+  color: #757575;
+  font-style: italic;
+}
+
+.dark .no-output {
+  color: #a0a0a0;
+}

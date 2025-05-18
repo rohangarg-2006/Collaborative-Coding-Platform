@@ -1,0 +1,82 @@
+/* Additional executive mode indicator styling */
+
+/* Make code execution status more prominent */
+.mode-indicator {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: #4a148c;  /* Deep purple */
+  color: white;
+  border-radius: 16px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* Add an icon to the mode indicator */
+.mode-indicator::before {
+  content: "🚀";
+  margin-right: 5px;
+}
+
+/* Special styling for the execution mode info */
+.execution-mode-info {
+  display: flex;
+  align-items: center;
+  background-color: rgba(74, 20, 140, 0.1);
+  border-left: 3px solid #4a148c;
+  padding: 8px 12px;
+  border-radius: 3px;
+  margin-top: 10px;
+}
+
+.execution-mode-info span {
+  font-weight: 500;
+  color: #4a148c;
+}
+
+/* Status badges with better visual indicators */
+.status-success {
+  color: #2e7d32;
+  font-weight: 500;
+  padding: 3px 8px;
+  background-color: rgba(46, 125, 50, 0.1);
+  border-radius: 12px;
+}
+
+.status-error {
+  color: #c62828;
+  font-weight: 500;
+  padding: 3px 8px;
+  background-color: rgba(198, 40, 40, 0.1);
+  border-radius: 12px;
+}
+
+/* Better run button */
+.run-code-btn {
+  background-color: #4a148c;
+  color: white;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.run-code-btn:hover {
+  background-color: #6a1b9a;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+.run-code-btn:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+/* Improved input toggle */
+.input-toggle-btn {
+  background-color: #0277bd;
+  color: white;
+}
+
+.input-toggle-btn:hover {
+  background-color: #0288d1;
+}

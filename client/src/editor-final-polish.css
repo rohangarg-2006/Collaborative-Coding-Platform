@@ -1,0 +1,115 @@
+/* Final polish for the editor appearance */
+
+/* Editor container backdrop styling */
+.monaco-editor-container {
+  transition: all 0.35s ease;
+  position: relative;
+  z-index: 1;
+}
+
+/* Add subtle glass effect in light mode */
+body:not(.dark) .monaco-editor,
+body.light .monaco-editor {
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+}
+
+/* Add subtle glass effect in dark mode */
+body.dark .monaco-editor {
+  backdrop-filter: blur(12px);
+  box-shadow: 
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+/* Add subtle glow effect on focus */
+.monaco-editor:focus-within {
+  transition: all 0.3s ease;
+}
+
+body.dark .monaco-editor:focus-within {
+  box-shadow: 
+    0 0 0 2px rgba(97, 218, 251, 0.25),
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(97, 218, 251, 0.1) inset;
+}
+
+body:not(.dark) .monaco-editor:focus-within,
+body.light .monaco-editor:focus-within {
+  box-shadow: 
+    0 0 0 2px rgba(49, 130, 206, 0.25),
+    0 8px 30px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(49, 130, 206, 0.1) inset;
+}
+
+/* Enhanced font rendering */
+.monaco-editor .view-lines {
+  letter-spacing: 0.3px;
+  font-family: 'Fira Code', 'JetBrains Mono', 'Cascadia Code', Consolas, 'Courier New', monospace !important;
+  font-size: 14px !important;
+  transform: translateZ(0);
+}
+
+/* Line animations for smooth scrolling */
+.monaco-editor .view-lines .view-line {
+  transition: transform 0.15s ease;
+}
+
+/* More specific styling for language-specific tokens */
+.monaco-editor[data-language="javascript"] .mtk4,
+.monaco-editor[data-language="typescript"] .mtk4 {
+  font-style: italic !important; /* Italicize function names */
+}
+
+.monaco-editor[data-language="javascript"] .mtk8,
+.monaco-editor[data-language="typescript"] .mtk8 {
+  font-weight: 600 !important; /* Make class names bolder */
+}
+
+.monaco-editor[data-language="python"] .mtk7 {
+  font-weight: 600 !important; /* Make python keywords bolder */
+}
+
+/* Enhanced gutter appearance */
+body.dark .monaco-editor .margin {
+  background: linear-gradient(to right, rgba(26, 33, 51, 0.98), transparent) !important;
+  border-right: 1px solid rgba(97, 218, 251, 0.1) !important;
+}
+
+body:not(.dark) .monaco-editor .margin,
+body.light .monaco-editor .margin {
+  background: linear-gradient(to right, rgba(240, 245, 250, 0.98), transparent) !important;
+  border-right: 1px solid rgba(49, 130, 206, 0.1) !important;
+}
+
+/* Subtle animation for cursor movement */
+.monaco-editor .cursors-layer {
+  transition: transform 0.1s ease;
+}
+
+/* Improved cursor visibility and smoother transitions */
+.monaco-editor .cursor {
+  transition: all 0.05s ease;
+  border-width: 2px !important;
+  background-color: rgba(97, 218, 251, 0.5) !important; 
+  box-shadow: 0 0 5px rgba(97, 218, 251, 0.7) !important;
+}
+
+.monaco-editor.dark-enhanced .cursor {
+  background-color: rgba(97, 218, 251, 0.7) !important;
+  border-color: #61dafb !important;
+}
+
+.monaco-editor.light-enhanced .cursor {
+  background-color: rgba(66, 153, 225, 0.7) !important;
+  border-color: #4299e1 !important;
+}
+
+/* Fix cursor positioning accuracy */
+.monaco-editor .monaco-editor-background {
+  will-change: transform;
+}

@@ -1,0 +1,1227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Animation keyframes */
+@keyframes blob {
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation utility classes */
+.animation-delay-2000 { animation-delay: 2s; }
+.animation-delay-4000 { animation-delay: 4s; }
+.animate-blob { animation: blob 7s infinite; }
+.animate-fadeIn { animation: fadeIn 0.5s ease-out forwards; }
+.animate-fadeIn {
+  animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+.animate-fadeIn-active {
+  opacity: 1 !important;
+}
+
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(0, 0, 0, 0.87); /* Changed to dark text for light mode */
+  background-color: white; /* Changed from #1a2637 to white for light mode */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Custom animations for role changes */
+@keyframes roleUpgrade {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(52, 211, 153, 0);
+  }
+  25% {
+    transform: scale(1.15);
+    box-shadow: 0 0 10px rgba(52, 211, 153, 0.7);
+  }
+  50% {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(52, 211, 153, 0.5);
+  }
+  75% {
+    transform: scale(1.05);
+    box-shadow: 0 0 5px rgba(52, 211, 153, 0.3);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(52, 211, 153, 0);
+  }
+}
+
+@keyframes roleDowngrade {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(0.9);
+    opacity: 0.7;
+  }
+  75% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-role-upgrade {
+  animation: roleUpgrade 2s ease-in-out;
+}
+
+.animate-role-downgrade {
+  animation: roleDowngrade 1.5s ease-in-out;
+}
+
+/* Ensure root element takes full width */
+#root {
+  width: 100%;
+  max-width: 100%;
+  min-width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+/* Sticky Footer Styles */
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10 !important;
+}
+
+/* Enhanced Navbar Styles */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar-gradient {
+  background: linear-gradient(90deg, #4338ca, #6d28d9, #7e22ce, #5b21b6);
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease infinite;
+  box-shadow: 0 4px 30px rgba(79, 70, 229, 0.2);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+  position: relative;
+  z-index: 30;
+}
+
+.navbar-gradient::after {
+  content: '';
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(to bottom, rgba(99, 102, 241, 0.1), transparent);
+  z-index: 0;
+}
+
+.button-hover-effect:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px -5px rgba(79, 70, 229, 0.4);
+}
+
+.text-glow {
+  text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+}
+
+/* Add a slight glow effect to buttons */
+.glow-on-hover {
+  transition: all 0.3s ease;
+}
+
+.glow-on-hover:hover {
+  box-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+}
+
+/* Custom scrollbar for navbar dropdowns */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(79, 70, 229, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(79, 70, 229, 0.5);
+  border-radius: 10px;
+}
+
+/* Page Background Pattern */
+.page-background {
+  position: relative;
+}
+
+.page-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%236366f1' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  pointer-events: none !important;
+  z-index: 0;
+}
+
+.page-background > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the dropdown menu is always above navbar and other content */
+.homepage-user-dropdown {
+  z-index: 99999 !important;
+  pointer-events: auto !important;
+}
+
+/* Improved Monaco Editor styling for better contrast */
+.monaco-editor {
+  padding: 8px 0;
+  border-radius: 6px;
+}
+
+/* Enhanced editor container styling */
+.editor-container {
+  max-height: calc(100vh - 120px);
+  transition: all 0.3s ease-in-out;
+}
+
+.editor-container .editor-header {
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.editor-main {
+  overflow: hidden;
+  height: calc(100vh - 180px);
+  transition: all 0.2s ease-in-out;
+}
+
+.editor-main .monaco-editor {
+  border-radius: 0 0 10px 10px !important;
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+}
+
+body.dark ::-webkit-scrollbar-thumb {
+  background: #555;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+body.dark ::-webkit-scrollbar-track {
+  background: #333;
+}
+
+/* Light theme customizations */
+body:not(.dark) .monaco-editor,
+body:not(.dark) .monaco-editor-background,
+body:not(.dark) .monaco-editor .margin,
+body.light .monaco-editor,
+body.light .monaco-editor-background,
+body.light .monaco-editor .margin,
+.monaco-editor.vs {
+  background-color: #f8fafc !important;
+  color: #383a42 !important;
+}
+
+/* Light mode specific styles for Monaco editor */
+body:not(.dark) .monaco-editor .monaco-scrollable-element,
+body:not(.dark) .monaco-editor .monaco-scrollable-element .monaco-editor-background,
+body:not(.dark) .monaco-editor .monaco-scrollable-element .overflow-guard,
+body:not(.dark) .monaco-editor .monaco-editor-background,
+body.light .monaco-editor,
+body.light .monaco-editor-background,
+body.light .monaco-scrollable-element,
+.monaco-editor.vs {
+  background-color: #f8fafc !important;
+  background: #f8fafc !important;
+}
+
+/* Light mode specific overrides - To ensure the light theme is properly applied */
+.monaco-editor.vs,
+.monaco-editor.vs-light,
+body:not(.dark) .monaco-editor {
+  background-color: #f8fafc !important;
+  background: #f8fafc !important;
+  color: #383a42 !important;
+}
+
+/* Light mode token colors */
+body:not(.dark) .monaco-editor .mtk1,
+body.light .monaco-editor .mtk1 { color: #383a42 !important; }
+body:not(.dark) .monaco-editor .mtk7,
+body.light .monaco-editor .mtk7 { color: #7c4dff !important; } /* Keywords */
+body:not(.dark) .monaco-editor .mtk5,
+body.light .monaco-editor .mtk5 { color: #e06c75 !important; } /* Strings */
+body:not(.dark) .monaco-editor .mtk3,
+body.light .monaco-editor .mtk3 { color: #619561 !important; } /* Comments */
+body:not(.dark) .monaco-editor .mtk12,
+body.light .monaco-editor .mtk12 { color: #d19a66 !important; } /* Functions */
+body:not(.dark) .monaco-editor .mtk8,
+body.light .monaco-editor .mtk8 { color: #4271ae !important; } /* Classes */
+body:not(.dark) .monaco-editor .mtk9,
+body.light .monaco-editor .mtk9 { color: #001080 !important; } /* Variables */
+
+/* Force the right background color for the editor container */
+.monaco-editor-container {
+  background-color: inherit !important;
+}
+
+/* Fix text colors for better contrast in light mode */
+body:not(.dark) .monaco-editor .view-line span,
+body:not(.dark) .monaco-editor .view-line,
+body:not(.dark) .monaco-editor .view-lines,
+body.light .monaco-editor .view-line span,
+body.light .monaco-editor .view-line,
+body.light .monaco-editor .view-lines {
+  color: #333333 !important;
+}
+
+/* Colors for specific syntax elements in light mode */
+body:not(.dark) .monaco-editor .mtk1, 
+body:not(.dark) .monaco-editor .mtk2, 
+body:not(.dark) .monaco-editor [class^='mtk'],
+body.light .monaco-editor .mtk1, 
+body.light .monaco-editor .mtk2,
+body.light .monaco-editor [class^='mtk'] {
+  color: #333333 !important; /* Default text in light mode */
+}
+
+body:not(.dark) .monaco-editor .mtk8,
+body:not(.dark) .monaco-editor .mtk9,
+body.light .monaco-editor .mtk8, 
+body.light .monaco-editor .mtk9 {
+  color: #0550ae !important; /* Classes & methods in light mode */
+}
+
+body:not(.dark) .monaco-editor .mtk7,
+body:not(.dark) .monaco-editor .mtk6,
+body.light .monaco-editor .mtk7,
+body.light .monaco-editor .mtk6 {
+  color: #0000ff !important; /* Keywords in light mode */
+}
+
+body:not(.dark) .monaco-editor .mtk5,
+body:not(.dark) .monaco-editor .mtk20,
+body.light .monaco-editor .mtk5, 
+body.light .monaco-editor .mtk20 {
+  color: #a31515 !important; /* Strings in light mode */
+}
+
+body:not(.dark) .monaco-editor .mtk3,
+body:not(.dark) .monaco-editor .mtk4,
+body:not(.dark) .monaco-editor .mtk10,
+body.light .monaco-editor .mtk3, 
+body.light .monaco-editor .mtk4,
+body.light .monaco-editor .mtk10 {
+  color: #008800 !important; /* Comments in light mode */
+}
+
+body:not(.dark) .monaco-editor .mtk12,
+body:not(.dark) .monaco-editor .mtk13,
+body.light .monaco-editor .mtk12, 
+body.light .monaco-editor .mtk13 {
+  color: #795E26 !important; /* Functions in light mode */
+}
+
+/* Styling for line numbers in light mode */
+body:not(.dark) .monaco-editor .margin,
+body:not(.dark) .monaco-editor .margin-view-overlays,
+body.light .monaco-editor .margin,
+body.light .monaco-editor .margin-view-overlays {
+  background-color: #f8fafc !important;
+  border-right: 1px solid #e2e8f0 !important;
+}
+
+body:not(.dark) .monaco-editor .line-numbers,
+body:not(.dark) .monaco-editor .margin-view-overlays .line-numbers,
+body.light .monaco-editor .line-numbers,
+body.light .monaco-editor .margin-view-overlays .line-numbers {
+  color: #606060 !important;
+}
+
+/* Light mode scrollbars */
+body:not(.dark) .monaco-scrollable-element > .scrollbar > .slider,
+body.light .monaco-scrollable-element > .scrollbar > .slider {
+  background: rgba(100, 100, 100, 0.4) !important;
+}
+
+body:not(.dark) .monaco-scrollable-element > .scrollbar > .slider:hover,
+body.light .monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: rgba(80, 80, 80, 0.7) !important;
+}
+
+/* Dark theme customizations */
+.monaco-editor,
+.monaco-editor-background,
+.monaco-editor .margin,
+.monaco-editor .monaco-editor-background,
+body.dark .monaco-editor,
+body.dark .monaco-editor-background,
+body.dark .monaco-editor .margin {
+  background-color: #1a2133 !important;
+}
+
+/* Monaco editor overrides - Force background and text colors */
+.monaco-editor,
+.monaco-editor .monaco-editor-background,
+.monaco-editor .margin-view-overlays,
+.monaco-editor .margin-view-overlays .line-numbers,
+.monaco-scrollable-element {
+  background-color: #1a2133 !important;
+  color: #ffffff !important;
+}
+
+/* Override Monaco editor styles aggressively */
+.monaco-editor .lines-content,
+.monaco-editor .view-line,
+.monaco-editor .view-lines {
+  background-color: #1a2133 !important;
+}
+
+/* Fix the black color and ensure text is visible with enhanced contrast color scheme */
+.monaco-editor .mtk1 { color: #ffffff !important; } /* Default text - brighter white */
+.monaco-editor .mtk2 { color: #ff5555 !important; } /* Errors - clearer red */
+.monaco-editor .mtk8 { color: #50b7ff !important; } /* Class names - brighter blue */
+.monaco-editor .mtk7 { color: #d488ff !important; } /* Keywords - brighter purple */
+.monaco-editor .mtk5 { color: #ff9d76 !important; } /* Strings - brighter orange */
+.monaco-editor .mtk4 { color: #ffe566 !important; } /* Functions - brighter yellow */
+.monaco-editor .mtk3 { color: #a4c2d9 !important; } /* Comments - brighter blue-gray */
+
+/* Style scrollbars to match the background */
+.monaco-scrollable-element > .scrollbar > .slider {
+  background: rgba(121, 121, 121, 0.4) !important;
+}
+.monaco-scrollable-element > .scrollbar > .slider:hover {
+  background: rgba(100, 100, 100, 0.7) !important;
+}
+
+/* Make border match the background color with improved styling */
+.monaco-editor {
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15) !important;
+  border: none !important;
+}
+
+/* Line number styling - improved visibility */
+body:not(.dark) .monaco-editor .line-numbers {
+  color: #8795a1 !important;
+  font-size: 0.9em !important;
+  font-weight: 400 !important;
+}
+
+body.dark .monaco-editor .line-numbers {
+  color: #7a9bbb !important;
+  font-size: 0.9em !important;
+  font-weight: 500 !important;
+}
+
+/* Remove dark background from code snippets */
+.code-snippet {
+  background-color: transparent !important;
+  border-radius: 6px;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+/**
+ * Editor Error Highlighting Styles
+ */
+
+/* General error highlighting */
+.monaco-editor .error-highlight {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-bottom: 2px wavy #ff0000 !important;
+  border-left: 3px solid #ff0000 !important;
+}
+
+.monaco-editor .inline-error-highlight {
+  text-decoration: wavy underline #ff0000 !important;
+  text-decoration-thickness: 2px !important;
+  text-decoration-skip-ink: none;
+  color: #ff5252 !important; 
+  font-weight: bold;
+}
+
+.monaco-editor .squiggly-error {
+  text-decoration: wavy underline #ff0000 !important;
+  text-decoration-thickness: 2px !important;
+  text-decoration-skip-ink: none;
+  position: relative;
+}
+
+.monaco-editor .squiggly-error::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  border-bottom: 2px wavy rgba(255, 0, 0, 0.8);
+  height: 3px;
+  pointer-events: none;
+}
+
+.monaco-editor .wavy-error {
+  border-bottom: 2px wavy #ff0000 !important;
+  margin-bottom: -2px !important;
+  padding-bottom: 1px;
+  background-color: rgba(255, 0, 0, 0.05);
+  display: inline-block;
+}
+
+.monaco-editor .error-line {
+  background-color: rgba(255, 0, 0, 0.05) !important;
+}
+
+.monaco-editor .glyph-margin-error {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ff0000' d='M8 1a7 7 0 1 0 0 14A7 7 0 0 0 8 1zm0 1a6 6 0 1 1 0 12A6 6 0 0 1 8 2zm2.13 3.76L8 7.89l-2.13-2.13-1.06 1.07L7.03 9 4.81 11.34l1.06 1.07L8 10.11l2.13 2.3 1.06-1.07L8.91 9l2.28-2.17-1.06-1.07z'/%3E%3C/svg%3E");
+  width: 16px !important;
+  height: 16px !important;
+  margin-left: 5px !important;
+  display: inline-block !important;
+}
+
+/* Warning highlighting */
+.monaco-editor .warning-highlight {
+  background-color: rgba(255, 204, 0, 0.1) !important;
+  border-bottom: 1px dotted #ffcc00;
+  border-left: 2px solid #ffcc00;
+}
+
+.monaco-editor .inline-warning-highlight {
+  text-decoration: wavy underline #ffcc00;
+  text-decoration-thickness: 2px !important;
+  text-decoration-skip-ink: none;
+  color: #ffcc00 !important; 
+}
+
+.monaco-editor .glyph-margin-warning {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23ffcc00' d='M8 1.01l-8 14h16l-8-14zm0 2l6 11h-12l6-11zm0 2c-.55 0-1 .45-1 1v4c0 .55.45 1 1 1s1-.45 1-1v-4c0-.55-.45-1-1-1zm0 7c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z'/%3E%3C/svg%3E");
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+}
+
+/* Show errors toggle styling */
+.monaco-editor.show-errors .error-line {
+  background-color: rgba(255, 0, 0, 0.05) !important;
+}
+
+.monaco-editor.show-errors .squiggly-error::after {
+  opacity: 1;
+}
+
+.monaco-editor:not(.show-errors) .squiggly-error::after,
+.monaco-editor:not(.show-errors) .error-highlight,
+.monaco-editor:not(.show-errors) .inline-error-highlight,
+.monaco-editor:not(.show-errors) .wavy-error {
+  display: none !important;
+}
+
+/* Language-specific error styles */
+
+/* Python */
+.monaco-editor .python-error,
+.monaco-editor.language-python .error-highlight,
+.monaco-editor[data-language="python"] .error-highlight {
+  background-color: rgba(255, 107, 107, 0.15) !important;
+  border-left: 3px solid #ff6b6b !important;
+}
+
+/* C++ */
+.monaco-editor .cpp-error,
+.monaco-editor.language-cpp .error-highlight,
+.monaco-editor[data-language="cpp"] .error-highlight {
+  background-color: rgba(240, 98, 146, 0.15) !important;
+  border-left: 3px solid #f06292 !important;
+}
+
+.monaco-editor .squiggly-cpp,
+.monaco-editor .wavy-cpp,
+.monaco-editor.language-cpp .squiggly-error,
+.monaco-editor[data-language="cpp"] .squiggly-error {
+  text-decoration: wavy underline #f06292 !important;
+  text-decoration-thickness: 3px !important;
+  text-decoration-skip-ink: none;
+}
+
+.monaco-editor[data-language="cpp"] .inline-error-highlight {
+  color: #f06292 !important;
+  text-decoration-color: #f06292 !important;
+}
+
+.monaco-editor.language-cpp .error-line,
+.monaco-editor[data-language="cpp"] .error-line {
+  background-color: rgba(240, 98, 146, 0.08) !important;
+}
+
+/* Java */
+.monaco-editor .java-error,
+.monaco-editor.language-java .error-highlight,
+.monaco-editor[data-language="java"] .error-highlight {
+  background-color: rgba(186, 104, 200, 0.15) !important;
+  border-left: 3px solid #ba68c8 !important;
+}
+
+/* C# */
+.monaco-editor .csharp-error,
+.monaco-editor.language-csharp .error-highlight,
+.monaco-editor[data-language="csharp"] .error-highlight {
+  background-color: rgba(100, 181, 246, 0.15) !important;
+  border-left: 3px solid #64b5f6 !important;
+}
+
+/* Rust */
+.monaco-editor .rust-error,
+.monaco-editor.language-rust .error-highlight,
+.monaco-editor[data-language="rust"] .error-highlight {
+  background-color: rgba(255, 112, 67, 0.15) !important;
+  border-left: 3px solid #ff7043 !important;
+}
+
+/* Go */
+.monaco-editor .go-error,
+.monaco-editor.language-go .error-highlight,
+.monaco-editor[data-language="go"] .error-highlight {
+  background-color: rgba(77, 182, 172, 0.15) !important;
+  border-left: 3px solid #4db6ac !important;
+}
+
+/* TypeScript */
+.monaco-editor .typescript-error,
+.monaco-editor.language-typescript .error-highlight,
+.monaco-editor[data-language="typescript"] .error-highlight {
+  background-color: rgba(121, 134, 203, 0.15) !important;
+  border-left: 3px solid #7986cb !important;
+}
+
+/* Ruby */
+.monaco-editor .ruby-error,
+.monaco-editor.language-ruby .error-highlight,
+.monaco-editor[data-language="ruby"] .error-highlight {
+  background-color: rgba(229, 115, 115, 0.15) !important;
+  border-left: 3px solid #e57373 !important;
+}
+
+/* PHP */
+.monaco-editor .php-error,
+.monaco-editor.language-php .error-highlight,
+.monaco-editor[data-language="php"] .error-highlight {
+  background-color: rgba(149, 117, 205, 0.15) !important;
+  border-left: 3px solid #9575cd !important;
+}
+
+/* JavaScript - special case because it's common */
+.monaco-editor .javascript-error,
+.monaco-editor.language-javascript .error-highlight,
+.monaco-editor[data-language="javascript"] .error-highlight {
+  background-color: rgba(255, 87, 34, 0.15) !important;
+  border-left: 3px solid #ff5722 !important;
+}
+
+/* Light theme overrides */
+@media (prefers-color-scheme: light) {
+  .monaco-editor .error-highlight {
+    border-left: 2px solid #d32f2f !important;
+    background-color: rgba(211, 47, 47, 0.1) !important;
+  }
+  
+  .monaco-editor .warning-highlight {
+    border-left: 2px solid #ff8f00 !important;
+    background-color: rgba(255, 143, 0, 0.1) !important;
+  }
+}
+
+/* Theme-specific styles */
+body.dark .monaco-editor .error-highlight {
+  background-color: rgba(255, 0, 0, 0.15) !important;
+}
+
+body.light .monaco-editor .error-highlight {
+  background-color: rgba(211, 47, 47, 0.1) !important;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+/* Custom animations for notifications */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translate(-50%, 20px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes fadeOut {
+  from { opacity: 1; transform: translate(-50%, 0); }
+  to { opacity: 0; transform: translate(-50%, 20px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+.animate-fade-out {
+  animation: fadeOut 0.3s ease-out forwards;
+  animation-fill-mode: forwards;
+}
+
+/* Ensure notifications display correctly with appropriate z-index */
+.language-notification {
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+/* Monaco editor customizations */
+.monaco-editor .suggest-widget {
+  width: auto !important;
+  max-width: 500px !important;
+}
+
+.monaco-editor .parameter-hints-widget {
+  width: auto !important;
+  max-width: 500px !important;
+}
+
+/* Enhanced error highlighting */
+.monaco-editor .squiggly-error {
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23ff1212'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left !important;
+  margin-bottom: 2px !important;
+}
+
+.monaco-editor .squiggly-warning {
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23ff8c00'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left !important;
+  margin-bottom: 2px !important;
+}
+
+/* Error highlighting styles */
+.monaco-editor .error-highlight {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-bottom: 1px dotted #ff0000;
+  border-left: 2px solid #ff0000;
+}
+
+.monaco-editor .inline-error-highlight {
+  text-decoration: wavy underline #ff0000;
+  text-decoration-skip-ink: none;
+  color: #ff5252 !important; 
+}
+
+.monaco-editor .line-error {
+  background-color: rgba(255, 0, 0, 0.05) !important;
+}
+
+.monaco-editor .glyph-margin-error::before {
+  content: "⚠️";
+  font-size: 14px;
+}
+
+/* Warning highlighting styles */
+.monaco-editor .warning-highlight {
+  background-color: rgba(255, 166, 0, 0.1) !important;
+  border-bottom: 1px dotted #ffa600;
+}
+
+.monaco-editor .inline-warning-highlight {
+  text-decoration: wavy underline #ffa600;
+  text-decoration-skip-ink: none;
+}
+
+.monaco-editor .line-warning {
+  background-color: rgba(255, 166, 0, 0.05) !important;
+}
+
+.monaco-editor .glyph-margin-warning::before {
+  content: "ℹ️";
+  font-size: 14px;
+}
+
+/* Hidden error styles */
+.monaco-editor .error-highlight-hidden {
+  background-color: transparent !important;
+  border: none !important;
+}
+
+.monaco-editor .hidden {
+  display: none !important;
+}
+
+/* Language-specific highlighting */
+.monaco-editor.language-python .error-highlight,
+.monaco-editor[data-language="python"] .error-highlight {
+  background-color: rgba(255, 36, 36, 0.15) !important;
+  border-left: 3px solid #ff2424 !important;
+}
+
+.monaco-editor.language-cpp .error-highlight,
+.monaco-editor[data-language="cpp"] .error-highlight {
+  background-color: rgba(255, 82, 82, 0.15) !important;
+  border-left: 3px solid #ff5252 !important;
+}
+
+.monaco-editor.language-java .error-highlight,
+.monaco-editor[data-language="java"] .error-highlight {
+  background-color: rgba(255, 82, 82, 0.15) !important;
+  border-left: 3px solid #ff5252 !important;
+}
+
+/* Improved cursor position for error highlighting */
+.monaco-editor .cursor-error {
+  background-color: #ff000044;
+  border-bottom: 1px dashed #ff0000;
+}
+
+/* Language-specific syntax highlighting */
+.monaco-editor[data-language="javascript"] .mtk9,
+.monaco-editor[data-language="typescript"] .mtk9 {
+  color: #9cdcfe !important; /* Variables */
+}
+
+.monaco-editor[data-language="python"] .mtk6 {
+  color: #ce9178 !important; /* String literals */
+}
+
+.monaco-editor[data-language="python"] .mtk16 {
+  color: #4ec9b0 !important; /* Class names and functions */
+}
+
+/* Super visible error highlighting for all languages */
+.monaco-editor .squiggly-error,
+.monaco-editor .error-highlight,
+.monaco-editor .inline-error-highlight,
+.monaco-editor[data-language] .error-highlight {
+  background-color: rgba(255, 0, 0, 0.2) !important;
+  border-bottom: 2px wavy #ff0000 !important;
+  border-left: 3px solid #ff0000 !important;
+  text-decoration: wavy underline #ff0000 !important;
+  font-weight: bold;
+  color: #ff5252 !important;
+  box-shadow: 0 0 3px rgba(255, 0, 0, 0.5) !important;
+}
+
+.monaco-editor[data-language="cpp"] .mtk12,
+.monaco-editor[data-language="java"] .mtk12,
+.monaco-editor[data-language="csharp"] .mtk12 {
+  color: #4fc1ff !important; /* Classes and types */
+}
+
+/* Improved marker decorations for errors */
+.monaco-editor .errorDecoration {
+  background-color: rgba(255, 0, 0, 0.1) !important;
+  border-left: 3px solid #f44336 !important;
+}
+
+/* Syntax highlighting improvements */
+.monaco-editor .mtk1 { color: #bbbbbb; } /* Default text */
+.monaco-editor .mtk2 { color: #ff9da4; } /* Errors */
+.monaco-editor .mtk8 { color: #4ec9b0; } /* Class names */
+.monaco-editor .mtk7 { color: #569cd6; } /* Keywords */
+.monaco-editor .mtk5 { color: #d7ba7d; } /* Strings */
+
+/* Extra high-contrast for errors */
+.monaco-editor .errorHighlight,
+.monaco-editor .error,
+.monaco-editor .squiggly-error,
+.monaco-editor .squiggly-inline-error,
+.monaco-editor .error-squiggly,
+.monaco-editor .error-highlight,
+.monaco-editor .inline-error-highlight {
+  font-weight: 700;
+  color: #ff0000;
+  text-shadow: 0 0 1px rgba(255,255,255,0.6);
+  margin-bottom: 2px;
+  text-decoration: underline wavy #ff0000;
+  border-bottom: 2px wavy #ff0000;
+  background-color: rgba(255, 0, 0, 0.15);
+  border-radius: 2px;
+  padding: 1px 0;
+  z-index: 100;
+  position: relative;
+}
+
+/* Make sure error decorations show up in all languages */
+.monaco-editor .monaco-editor-background .view-lines .view-line .mtk.error,
+.monaco-editor .monaco-editor-background .view-lines .view-line .squiggly-error {
+  background: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%206%203'%20enable-background%3D'new%200%200%206%203'%20height%3D'3'%20width%3D'6'%3E%3Cg%20fill%3D'%23ff0000'%3E%3Cpolygon%20points%3D'5.5%2C0%202.5%2C3%201.1%2C3%204.1%2C0'%2F%3E%3Cpolygon%20points%3D'4%2C0%206%2C2%206%2C0.6%205.4%2C0'%2F%3E%3Cpolygon%20points%3D'0%2C2%201%2C3%202.4%2C3%200%2C0.6'%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E") repeat-x bottom left;
+  padding-bottom: 3px;
+  margin-bottom: 2px;
+}
+
+/* Direct Monaco editor overrides for better contrast */
+.monaco-editor .monaco-scrollable-element,
+.monaco-editor .monaco-scrollable-element .monaco-editor-background,
+.monaco-editor .monaco-scrollable-element .overflow-guard,
+.monaco-editor .monaco-editor-background,
+.monaco-editor-background,
+.monaco-editor {
+  background-color: #1a2637 !important;
+  background: #1a2637 !important;
+  border-radius: 8px;
+}
+
+/* Fix text colors for better contrast */
+.monaco-editor .view-line span, 
+.monaco-editor .view-line,
+.monaco-editor .view-lines {
+  color: #d4d4d8 !important;
+}
+
+/* Colors for specific syntax elements */
+.monaco-editor .mtk1, 
+.monaco-editor .mtk2,
+.monaco-editor [class^='mtk'] {
+  color: #d4d4d8 !important;
+}
+
+.monaco-editor .mtk8, 
+.monaco-editor .mtk9 {
+  color: #4ec9b0 !important; /* Classes & methods */
+}
+
+.monaco-editor .mtk7,
+.monaco-editor .mtk6 {
+  color: #569cd6 !important; /* Keywords */
+}
+
+.monaco-editor .mtk5, 
+.monaco-editor .mtk20 {
+  color: #ce9178 !important; /* Strings */
+}
+
+.monaco-editor .mtk3, 
+.monaco-editor .mtk4,
+.monaco-editor .mtk10 {
+  color: #6A9955 !important; /* Comments */
+}
+
+.monaco-editor .mtk12, 
+.monaco-editor .mtk13 {
+  color: #DCDCAA !important; /* Functions */
+}
+
+/* Styling for line numbers */
+.monaco-editor .margin,
+.monaco-editor .margin-view-overlays {
+  background-color: #1a2637 !important;
+  border-right: 1px solid #334155 !important;
+}
+
+.monaco-editor .line-numbers,
+.monaco-editor .margin-view-overlays .line-numbers {
+  color: #64748b !important;
+}
+
+/* Hide borders that create sharp contrast */
+.monaco-editor,
+.monaco-editor .monaco-editor-background {
+  border: none !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Improved current line highlight */
+.monaco-editor .current-line,
+.monaco-editor .view-overlays .current-line,
+.monaco-editor .margin-view-overlays .current-line-margin {
+  background-color: rgba(100, 114, 145, 0.08) !important;
+  border-left: 2px solid #4b5563 !important;
+}
+
+body.dark .monaco-editor .current-line,
+body.dark .monaco-editor .view-overlays .current-line,
+body.dark .monaco-editor .margin-view-overlays .current-line-margin {
+  background-color: rgba(66, 76, 97, 0.7) !important;
+  border-left: 2px solid #7a9bbb !important;
+}
+
+/* Line number gutter enhancements */
+.monaco-editor .margin {
+  border-right-width: 1px !important;
+  background: linear-gradient(to right, rgba(248, 250, 252, 0.97), rgba(248, 250, 252, 1)) !important;
+}
+
+body.dark .monaco-editor .margin {
+  background: linear-gradient(to right, rgba(26, 33, 51, 0.97), rgba(26, 33, 51, 1)) !important;
+}
+
+/* Enhance readability of code text */
+.monaco-editor .view-line {
+  letter-spacing: 0.3px !important;
+  font-size: 14px !important;
+  font-family: 'Consolas', 'Monaco', 'Courier New', monospace !important;
+}
+
+/* Additional contrast improvements for specific token types */
+.monaco-editor .mtk6 { color: #ff79c6 !important; } /* Additional token styling */
+.monaco-editor .mtk9 { color: #65bcff !important; } /* Variables and parameters */
+.monaco-editor .mtk10 { color: #ff9d76 !important; } /* Additional token styling */
+.monaco-editor .mtk11 { color: #ffe566 !important; } /* Additional token styling */
+.monaco-editor .mtk12 { color: #ffe566 !important; } /* Additional token styling */
+
+/* Enhance visibility of editor active line numbers */
+body.dark .monaco-editor .margin-view-overlays .current-line-margin .line-numbers {
+  color: #ffffff !important;
+  font-weight: bold !important;
+}
+
+/* Navbar gradient animation */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.navbar-gradient {
+  background: linear-gradient(90deg, #4338ca, #6d28d9, #7e22ce, #5b21b6);
+  background-size: 300% 300%;
+  animation: gradientShift 15s ease infinite;
+  box-shadow: 0 4px 30px rgba(79, 70, 229, 0.2);
+  border-bottom: 1px solid rgba(139, 92, 246, 0.2);
+}
+
+/* Text glow effect */
+.text-glow {
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Sticky footer */
+.sticky-footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10 !important;
+}
+
+/* Page background patterned effect */
+.page-background {
+  position: relative;
+}
+
+.page-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.4;
+  z-index: -1;
+  pointer-events: none !important;
+  background-image: 
+    linear-gradient(to right, rgba(99, 102, 241, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(99, 102, 241, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dark .page-background::before {
+  opacity: 0.2;
+  background-image: 
+    linear-gradient(to right, rgba(139, 92, 246, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.15) 1px, transparent 1px);
+}
+
+/* Homepage-specific styles */
+.homepage-root {
+  background-attachment: fixed;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+/* --- User Profile Page Full-Width/Height Layout Improvements --- */
+
+.user-profile-container {
+  min-height: calc(100vh - 80px);
+  width: 100vw;
+  max-width: 100vw;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: linear-gradient(135deg, #4338ca 0%, #5b21b6 100%);
+  padding: 0;
+  margin: 0;
+}
+
+.user-profile-card {
+  width: 100%;
+  max-width: 600px;
+  margin: 40px auto 0 auto;
+  background: #4f46e5;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 8px 32px rgba(79,70,229,0.18);
+  padding: 40px 32px 32px 32px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: #fff;
+  color: #4f46e5;
+  font-size: 3rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 16px rgba(79,70,229,0.12);
+}
+
+.user-profile-details {
+  width: 100%;
+  background: #18192a;
+  border-radius: 0 0 20px 20px;
+  padding: 32px 32px 40px 32px;
+  color: #e0e7ff;
+  font-size: 1.15rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-profile-details .profile-label {
+  color: #a5b4fc;
+  font-weight: 600;
+  margin-top: 18px;
+  margin-bottom: 2px;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.user-profile-details .profile-value {
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 700px) {
+  .user-profile-card, .user-profile-details {
+    padding: 18px 8px;
+    border-radius: 0;
+  }
+  .user-profile-avatar {
+    width: 80px;
+    height: 80px;
+    font-size: 2rem;
+  }
+}

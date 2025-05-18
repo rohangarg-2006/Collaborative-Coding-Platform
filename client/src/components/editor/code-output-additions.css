@@ -1,0 +1,162 @@
+/* Additional styles for code output component */
+
+.api-error-help {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: rgba(255, 152, 0, 0.1);
+  border-left: 3px solid #ff9800;
+  border-radius: 3px;
+}
+
+.dark .api-error-help {
+  background-color: rgba(255, 152, 0, 0.05);
+}
+
+.api-error-help p {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+.dark .api-error-help p {
+  color: #ccc;
+}
+
+.switch-to-mock-btn {
+  padding: 4px 8px;
+  background-color: #ff9800;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.error-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.retry-btn {
+  padding: 4px 8px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+.api-error-details {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #888;
+  border-top: 1px dotted #ccc;
+  padding-top: 8px;
+}
+
+.dark .api-error-details {
+  color: #aaa;
+  border-color: #444;
+}
+
+.execution-mode-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.8rem;
+  color: #ff9800;
+}
+
+.dark .execution-mode-info {
+  border-color: #444;
+}
+
+.try-api-btn,
+.try-advanced-btn {
+  padding: 3px 6px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.mode-indicator {
+  font-size: 0.8rem;
+  padding: 2px 6px;
+  border-radius: 3px;
+  background-color: rgba(33, 150, 243, 0.1);
+  color: #2196F3;
+}
+
+.dark .mode-indicator {
+  background-color: rgba(33, 150, 243, 0.2);
+}
+
+.input-toggle-btn {
+  padding: 4px 8px;
+  background-color: #9C27B0;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  margin-right: 4px;
+}
+
+.initial-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.toggle-mode-btn {
+  padding: 6px 12px;
+  background-color: #607D8B;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.toggle-mode-btn:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.info-text {
+  margin-top: 8px;
+  color: #666;
+  font-size: 0.8rem;
+}
+
+.dark .info-text {
+  color: #aaa;
+}
+
+/* Animation for spinner */
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+ 
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: #2196F3;
+  animation: spinner 0.8s linear infinite;
+  margin-right: 8px;
+}
+
+.dark .spinner {
+  border-color: rgba(255, 255, 255, 0.1);
+  border-top-color: #2196F3;
+}

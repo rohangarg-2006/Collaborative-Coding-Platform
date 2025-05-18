@@ -1,0 +1,4 @@
+/* Spinner animation for code execution */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

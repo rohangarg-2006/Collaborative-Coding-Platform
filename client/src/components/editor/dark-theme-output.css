@@ -1,0 +1,63 @@
+/* Dark theme styles for code output component */
+
+/* Override spinner animation */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Dark theme specific colors */
+.code-output-container.dark {
+  --bg-primary: #1e293b;
+  --bg-secondary: #0f172a;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --border-color: #334155;
+  --accent-color: #3b82f6;
+  --error-color: #f87171;
+  --success-color: #34d399;
+}
+
+.code-output-container.dark .output-panel {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+/* Animation for the spinner */
+.loading-spinner {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid rgba(59, 130, 246, 0.2);
+  border-top-color: #3b82f6;
+  animation: spin 1s linear infinite;
+}
+
+/* Additional enhancements */
+.stat-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-success {
+  background-color: rgba(52, 211, 153, 0.1); 
+  color: #34d399;
+}
+
+.status-error {
+  background-color: rgba(248, 113, 113, 0.1);
+  color: #f87171;
+}
+
+/* Button hover effect */
+.code-output-container button:hover {
+  filter: brightness(1.1);
+}
+
+/* Transitions */
+.code-output-container .panel,
+.code-output-container button {
+  transition: all 0.2s ease;
+}

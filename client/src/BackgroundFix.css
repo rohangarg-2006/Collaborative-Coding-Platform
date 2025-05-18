@@ -1,0 +1,22 @@
+/* BackgroundFix.css - Ensures consistent background colors */
+html, body {
+  background-color: #ffffff !important;
+}
+
+body.dark, html.dark {
+  background-color: #1a202c !important;
+}
+
+/* Override the default root background color */
+:root {
+  background-color: #ffffff !important;
+}
+
+/* Fix for HomePage background */
+.homepage-root {
+  background-color: #ffffff !important;
+}
+
+.dark .homepage-root {
+  background-color: #1a202c !important;
+}

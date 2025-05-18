@@ -2,7 +2,7 @@ import axios from 'axios';
 import AuthService from './authService';
 
 // API base URL
-const API_URL = import.meta.env.VITE_API_URL || 'https://codecollab-backend-1org.onrender.com/api/v1';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
 // Create axios instance with credentials
 const api = axios.create({

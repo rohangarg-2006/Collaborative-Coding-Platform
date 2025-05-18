@@ -1,7 +1,7 @@
 // Ultra-simplified geminiService.js - direct API calls only
 import axios from 'axios';
 
-const API_KEY = 'AIzaSyBgXYsxUMrWxCY2t3PpnUMZXmCZfngoWPM';
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 const geminiService = {
   async getAiResponse(prompt) {

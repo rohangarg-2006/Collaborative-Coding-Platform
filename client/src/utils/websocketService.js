@@ -2,7 +2,7 @@ import { io } from 'socket.io-client';
 import AuthService from './authService';
 
 // WebSocket API URL
-const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const SOCKET_URL = import.meta.env.VITE_API_URL || 'https://codecollab-backend-1org.onrender.com';
 
 // Initialize socket connection - null until connect is called
 let socket = null;

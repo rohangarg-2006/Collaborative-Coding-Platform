@@ -13,16 +13,30 @@
 
 ## 🚀 Features
 
-- ✍️ **Real-time collaborative code editing** with Monaco Editor  
-- 🌐 **Multiple programming languages supported**: JavaScript, Python, C++, Java, TypeScript, C#, Go, PHP, Ruby, Rust, and more  
-- 📂 **Project management**: Create, rename, delete, or edit projects  
-- 👥 **Invite collaborators** via unique invite codes (for public projects)  
-- 🔐 **Role-based access**: Admin, Editor, Viewer  
-- 💾 **Download code** in the respective language file format  
-- 🤖 **AI chatbot integration** using Gemini  
-- 💬 **Live chat support** inside each project room  
-- 📱 **Responsive UI** built with Tailwind CSS  
+✨ CodeCollab offers a powerful set of features for real-time collaboration and productivity:
+- 🔐 **Sign up and Log in** securely using JWT-based authentication  
+- 🧠 **AI Assistant (Gemini)** to help with code-related queries in real time  
+- 👨‍💻 **Collaborative Code Editing** using the Monaco Editor with live syncing  
+- 🌐 **Multiple Language Support** – Write code in JavaScript, Python, C++, Java, TypeScript, C#, Go, PHP, Ruby, Rust, and more  
+- 🗂️ **Project Management** – Create, rename, edit, and delete projects with ease  
+- 👥 **Invite Collaborators** to join public projects via unique invite codes  
+- 🛡️ **Role-Based Access** – Assign users as Admins, Editors, or Viewers to control permissions  
+- 💬 **Live Chat** – Communicate instantly with your team inside the code editor  
+- 📥 **Download Code** anytime in the correct file format for the selected language  
+- 📱 **Fully Responsive UI** designed with Tailwind CSS for seamless use on all devices
 
+🧪 Whether you're preparing for interviews, doing pair programming, mentoring juniors, or building together — CodeCollab makes it fast, easy, and fun.
+
+---
+
+## 🧪 Usage
+
+- Create an account and log in
+- Create a new project or join an existing one via invite code
+- Invite collaborators to public projects
+- Collaboratively edit code, chat, and manage project settings in real-time
+- Download code in the correct language format anytime
+  
 ---
 
 ## Tech Stack
@@ -64,18 +78,13 @@ npm run dev
 ```
 
 - The client runs on `http://localhost:5173` by default.
-
+  
+---
 
 ### 🔧 Prerequisites
 
 - Node.js and npm installed  
 - MongoDB (running locally or use MongoDB Atlas)
 
-## 🧪 Usage
 
-- Create an account and log in
-- Create a new project or join an existing one via invite code
-- Invite collaborators to public projects
-- Collaboratively edit code, chat, and manage project settings in real-time
-- Download code in the correct language format anytime
 

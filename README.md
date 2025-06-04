@@ -29,16 +29,6 @@
 
 ---
 
-## 🧪 Usage
-
-- Create an account and log in
-- Create a new project or join an existing one via invite code
-- Invite collaborators to public projects
-- Collaboratively edit code, chat, and manage project settings in real-time
-- Download code in the correct language format anytime
-  
----
-
 ## Tech Stack
 
 - **Frontend**: React, Vite, Tailwind CSS, Monaco Editor
@@ -81,7 +71,7 @@ npm run dev
   
 ---
 
-### 🔧 Prerequisites
+## 🔧 Prerequisites
 
 - Node.js and npm installed  
 - MongoDB (running locally or use MongoDB Atlas)

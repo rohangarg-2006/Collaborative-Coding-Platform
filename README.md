@@ -21,7 +21,6 @@
 - 🗂️ **Project Management** – Create, rename, edit, and delete projects with ease  
 - 👥 **Invite Collaborators** to join public projects via unique invite codes  
 - 🛡️ **Role-Based Access** – Assign users as Admins, Editors, or Viewers to control permissions  
-- 💬 **Live Chat** – Communicate instantly with your team inside the code editor  
 - 📥 **Download Code** anytime in the correct file format for the selected language  
 - 📱 **Fully Responsive UI** designed with Tailwind CSS for seamless use on all devices
 

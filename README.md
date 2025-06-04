@@ -25,53 +25,51 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
-### Frontend (`client/`)
-
-- React + Vite  
-- Tailwind CSS  
-- Monaco Editor  
-- Axios  
-
-### Backend (`server/`)
-
-- Node.js + Express  
-- MongoDB (Mongoose)  
-- Socket.IO (WebSockets for real-time collaboration)  
-- JWT Authentication  
+- **Frontend**: React, Vite, Tailwind CSS, Monaco Editor
+- **Backend**: Node.js, Express, MongoDB, Socket.IO
+- **Authentication**: JWT
+- **Real-time**: WebSockets (Socket.IO)
 
 ---
 
 ## 💻 Setup, Installation & Running the App
 
-> Follow these steps to run the entire app locally:
+### 1. Clone the repository
+
+```sh
+git clone https://github.com/yourusername/codecollab.git
+cd codecollab
+```
+
+### 2. Setup the Server
+
+```sh
+cd server
+npm install
+# Copy .env.example to .env and set your environment variables
+npm start
+```
+
+- The server runs on `http://localhost:5000` by default.
+
+### 3. Setup the Client
+
+```sh
+cd ../client
+npm install
+# Copy .env.example to .env and set VITE_API_URL if needed
+npm run dev
+```
+
+- The client runs on `http://localhost:5173` by default.
+
 
 ### 🔧 Prerequisites
 
 - Node.js and npm installed  
 - MongoDB (running locally or use MongoDB Atlas)
-
-## 🧩 Installation & Execution
-
-# 1. Clone the repository
-git clone https://github.com/rohangarg-2006/Collaborative-Coding-Platform.git
-cd Collaborative-Coding-Platform
-
-# 2. Install client dependencies
-cd client
-npm install
-
-# 3. Install server dependencies
-cd ../server
-npm install
-
-# 4. Run backend (starts at http://localhost:5000)
-npm run dev
-
-# 5. Open a new terminal and start frontend (at http://localhost:5173)
-cd ../client
-npm run dev
 
 ## 🧪 Usage
 

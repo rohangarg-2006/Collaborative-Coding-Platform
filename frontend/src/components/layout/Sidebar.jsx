@@ -286,26 +286,26 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   };
 
   return (
-    <div className="h-full flex flex-col bg-[#1E1E1E] text-[#CCCCCC] border-r border-[#444] overflow-hidden" style={{ minWidth: '280px', width: '280px' }}>
+    <div className="h-full flex flex-col bg-white/90 dark:bg-[#1E1E1E] text-slate-700 dark:text-[#CCCCCC] border-r border-slate-200 dark:border-[#444] overflow-hidden transition-colors duration-300" style={{ minWidth: '280px', width: '280px' }}>
       {/* Header */}
-      <div className="p-3 bg-[#252525] border-b border-[#444]">
-        <h2 className="font-bold text-white text-lg">Project Collaboration</h2>
-        <div className="flex items-center mt-1 text-xs text-[#aaa]">
+      <div className="p-3 bg-slate-100 dark:bg-[#252525] border-b border-slate-200 dark:border-[#444]">
+        <h2 className="font-bold text-slate-900 dark:text-white text-lg">Project Collaboration</h2>
+        <div className="flex items-center mt-1 text-xs text-slate-500 dark:text-[#aaa]">
           <span className={`w-2 h-2 rounded-full mr-1 ${isConnected ? 'bg-green-500' : 'bg-red-500'}`}></span>
           <span>{isConnected ? 'Connected' : 'Disconnected'}</span>
         </div>
       </div>
       
       {/* Tabs */}
-      <div className="flex bg-[#2D2D2D] border-b border-[#444]">
+      <div className="flex bg-slate-100 dark:bg-[#2D2D2D] border-b border-slate-200 dark:border-[#444]">
         <button 
-          className={`flex-1 py-3 px-4 ${activeTab === 'participants' ? 'bg-[#1E1E1E] text-white' : 'hover:bg-[#252525]'}`}
+          className={`flex-1 py-3 px-4 ${activeTab === 'participants' ? 'bg-white dark:bg-[#1E1E1E] text-slate-900 dark:text-white' : 'bg-slate-100 text-slate-700 dark:bg-[#2D2D2D] dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#252525]'}`}
           onClick={() => setActiveTab('participants')}
         >
           Participants
         </button>
         <button 
-          className={`flex-1 py-3 px-4 ${activeTab === 'sessions' ? 'bg-[#1E1E1E] text-white' : 'hover:bg-[#252525]'}`}
+          className={`flex-1 py-3 px-4 ${activeTab === 'sessions' ? 'bg-white dark:bg-[#1E1E1E] text-slate-900 dark:text-white' : 'bg-slate-100 text-slate-700 dark:bg-[#2D2D2D] dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-[#252525]'}`}
           onClick={() => setActiveTab('sessions')}
         >
           Sessions
@@ -317,10 +317,10 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         {/* Participants Tab */}
         {activeTab === 'participants' && (
           <div className="p-3">
-            <div className="bg-[#252525] p-3 rounded mb-4">
-              <h3 className="font-medium mb-3 border-b border-[#444] pb-1">Active users</h3>
+            <div className="bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] p-3 rounded mb-4">
+              <h3 className="font-medium mb-3 border-b border-slate-200 dark:border-[#444] pb-1">Active users</h3>
               {loading ? (
-                <div className="text-sm text-[#999]">Loading participants...</div>
+                <div className="text-sm text-slate-500 dark:text-[#999]">Loading participants...</div>
               ) : currentSession && currentSession.activeUsers && currentSession.activeUsers.length > 0 ? (
                 <ul className="space-y-3">
                   {currentSession.activeUsers.map((user, index) => {
@@ -339,7 +339,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     const userRole = user.role || matchingCollaborator?.role || 'viewer';
                     
                     return (
-                      <li key={userId || index} className="flex items-center justify-between border-b border-[#333] pb-2 last:border-0 last:pb-0">
+                      <li key={userId || index} className="flex items-center justify-between border-b border-slate-200 dark:border-[#333] pb-2 last:border-0 last:pb-0">
                         <div className="flex items-center gap-2">
                           <span 
                             className="w-3 h-3 rounded-full" 
@@ -347,15 +347,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           ></span>
                           <span className="text-sm">{userName}</span>
                           {userId === currentUser?.id && (
-                            <span className="text-xs text-[#999]">(you)</span>
+                            <span className="text-xs text-slate-500 dark:text-[#999]">(you)</span>
                           )}
                         </div>
                         <div className={`text-xs px-2 py-1 rounded ${
                           userRole === 'admin' 
-                            ? 'bg-blue-900/30 text-blue-300' 
+                            ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' 
                             : userRole === 'editor' 
-                              ? 'bg-green-900/30 text-green-300' 
-                              : 'bg-gray-800 text-gray-300'
+                              ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' 
+                              : 'bg-slate-100 text-slate-600 dark:bg-gray-800 dark:text-gray-300'
                         }`}>
                           {userRole === 'admin' ? 'Admin' : userRole === 'editor' ? 'Editor' : 'Viewer'}
                         </div>
@@ -364,13 +364,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   })}
                 </ul>
               ) : (
-                <div className="text-sm text-[#999]">No active users</div>
+                <div className="text-sm text-slate-500 dark:text-[#999]">No active users</div>
               )}
             </div>
             
             {collaborators.length > 0 && (
-              <div className="bg-[#252525] p-3 rounded">
-                <h3 className="font-medium mb-3 border-b border-[#444] pb-1">Project collaborators</h3>
+              <div className="bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] p-3 rounded">
+                <h3 className="font-medium mb-3 border-b border-slate-200 dark:border-[#444] pb-1">Project collaborators</h3>
                 <ul className="space-y-2">
                   {collaborators.map((collab, index) => {
                     const collabId = collab.user?._id || collab.user;
@@ -386,13 +386,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                           <span className={`w-2 h-2 rounded-full mr-2 ${isActive ? 'bg-green-500' : 'bg-gray-500'}`}></span>
                           <span>{collabName}</span>
                           {collabId?.toString() === currentUser?.id?.toString() && (
-                            <span className="text-xs text-[#999] ml-1">(you)</span>
+                            <span className="text-xs text-slate-500 dark:text-[#999] ml-1">(you)</span>
                           )}
                         </div>
                         <span className={`text-xs px-2 py-0.5 rounded ${
-                          collab.role === 'admin' ? 'bg-blue-900/30 text-blue-300' : 
-                          collab.role === 'editor' ? 'bg-green-900/30 text-green-300' : 
-                          'bg-gray-800 text-gray-300'
+                          collab.role === 'admin' ? 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300' : 
+                          collab.role === 'editor' ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300' : 
+                          'bg-slate-100 text-slate-600 dark:bg-gray-800 dark:text-gray-300'
                         }`}>
                           {collab.role}
                         </span>
@@ -409,11 +409,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
         {activeTab === 'sessions' && (
           <div className="p-3">
             <div className="mb-4">
-              <h3 className="font-medium mb-2 text-white">Current session</h3>
+              <h3 className="font-medium mb-2 text-slate-900 dark:text-white">Current session</h3>
               {loading ? (
-                <div className="text-sm text-[#999] bg-[#252525] p-3 rounded">Loading sessions...</div>
+                <div className="text-sm text-slate-500 dark:text-[#999] bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] p-3 rounded">Loading sessions...</div>
               ) : currentSession ? (
-                <div className="bg-[#252525] rounded p-3">
+                <div className="bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] rounded p-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center">
                       <span className="w-2 h-2 bg-green-500 rounded-full mr-2"></span>
@@ -421,15 +421,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     </div>
                     <span className="text-xs text-green-400 bg-green-900/30 px-2 py-1 rounded">Live</span>
                   </div>
-                  <div className="text-xs text-[#999] mt-2">
+                  <div className="text-xs text-slate-500 dark:text-[#999] mt-2">
                     Started {formatTimeAgo(currentSession.startTime)}
                   </div>
-                  <div className="text-xs text-[#999] mt-1">
+                  <div className="text-xs text-slate-500 dark:text-[#999] mt-1">
                     {currentSession.activeUsers?.length || 0} active users
                   </div>
                   
                   {/* Users in current session */}
-                  <div className="mt-3 pt-2 border-t border-[#444]">
+                  <div className="mt-3 pt-2 border-t border-slate-200 dark:border-[#444]">
                     <div className="text-xs font-medium mb-2">Participants</div>
                     <div className="flex flex-wrap gap-2">
                       {currentSession.activeUsers?.map((user, idx) => {
@@ -439,7 +439,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                         const initials = userName.split(' ').map(part => part[0]).join('').slice(0, 2).toUpperCase();
                         
                         return (
-                          <div key={idx} className="flex items-center bg-[#333] rounded-full pl-1 pr-2 py-1">
+                          <div key={idx} className="flex items-center bg-slate-100 dark:bg-[#333] rounded-full pl-1 pr-2 py-1">
                             <span className="w-5 h-5 rounded-full flex items-center justify-center text-[10px] mr-1" style={{backgroundColor: userColor}}>
                               {initials}
                             </span>
@@ -452,13 +452,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   
                   {/* Messages preview */}
                   {currentSession.chatMessagePreviews && currentSession.chatMessagePreviews.length > 0 && (
-                    <div className="mt-3 pt-2 border-t border-[#444]">
+                    <div className="mt-3 pt-2 border-t border-slate-200 dark:border-[#444]">
                       <div className="text-xs font-medium mb-2">Latest messages</div>
                       {currentSession.chatMessagePreviews.map((msg, idx) => (
-                        <div key={idx} className="text-xs mt-1 bg-[#323232] p-2 rounded">
+                        <div key={idx} className="text-xs mt-1 bg-slate-100 dark:bg-[#323232] p-2 rounded">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-medium">{msg.username}</span>
-                            <span className="text-[10px] text-[#999]">{formatTimeAgo(msg.timestamp)}</span>
+                            <span className="text-[10px] text-slate-500 dark:text-[#999]">{formatTimeAgo(msg.timestamp)}</span>
                           </div>
                           <div>{msg.message}</div>
                         </div>
@@ -467,12 +467,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                   )}
                 </div>
               ) : (
-                <div className="bg-[#252525] rounded p-3">
+                <div className="bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] rounded p-3">
                   <div className="flex items-center">
                     <span className="w-2 h-2 bg-yellow-500 rounded-full mr-2"></span>
                     <span className="text-sm">No active session</span>
                   </div>
-                  <div className="mt-2 text-xs text-[#999]">
+                  <div className="mt-2 text-xs text-slate-500 dark:text-[#999]">
                     Create a new session to start collaborating
                   </div>
                 </div>
@@ -480,27 +480,27 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
             </div>
             
             <div>
-              <h3 className="font-medium mb-2 text-white">Past sessions</h3>
+              <h3 className="font-medium mb-2 text-slate-900 dark:text-white">Past sessions</h3>
               {loading ? (
-                <div className="text-sm text-[#999] bg-[#252525] p-3 rounded">Loading sessions...</div>
+                <div className="text-sm text-slate-500 dark:text-[#999] bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] p-3 rounded">Loading sessions...</div>
               ) : sessions && sessions.filter(s => !s.isActive).length > 0 ? (
                 <ul className="space-y-2">
                   {sessions
                     .filter(session => !session.isActive)
                     .map(session => (
-                      <li key={session._id} className="bg-[#252525] rounded p-3">
+                      <li key={session._id} className="bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] rounded p-3">
                         <div className="flex items-center justify-between">
                           <div className="flex items-center">
-                            <span className="w-2 h-2 bg-[#666] rounded-full mr-2"></span>
+                            <span className="w-2 h-2 bg-slate-400 dark:bg-[#666] rounded-full mr-2"></span>
                             <span className="text-sm">Session</span>
                           </div>
-                          <span className="text-xs text-[#999]">{formatTimeAgo(session.startTime)}</span>
+                          <span className="text-xs text-slate-500 dark:text-[#999]">{formatTimeAgo(session.startTime)}</span>
                         </div>
-                        <div className="text-xs text-[#999] mt-1">
+                        <div className="text-xs text-slate-500 dark:text-[#999] mt-1">
                           {session.activeUsers?.length || 0} participants
                         </div>
                         <button 
-                          className="mt-2 w-full text-xs bg-[#333] hover:bg-[#444] py-1 px-2 rounded text-center transition-colors"
+                          className="mt-2 w-full text-xs bg-slate-200 hover:bg-slate-300 dark:bg-[#333] dark:hover:bg-[#444] py-1 px-2 rounded text-center transition-colors"
                           onClick={() => {
                             // Create a copy and set as active
                             const reactivatedSession = {
@@ -525,7 +525,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     ))}
                 </ul>
               ) : (
-                <div className="text-sm text-[#999] bg-[#252525] p-3 rounded">No past sessions available</div>
+                <div className="text-sm text-slate-500 dark:text-[#999] bg-white dark:bg-[#252525] border border-slate-200 dark:border-[#3a3a3a] p-3 rounded">No past sessions available</div>
               )}
             </div>
           </div>

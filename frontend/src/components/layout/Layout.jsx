@@ -19,14 +19,9 @@ const Layout = ({
 }) => {  // Get the current location to determine which header to use
   const location = useLocation();
   const isAboutPage = location.pathname === '/about';
-  const isProfilePage = location.pathname === '/profile';
   return (
     <div className={`
-      min-h-screen w-screen page-background
-      ${isAboutPage 
-        ? 'bg-white dark:bg-gray-800' 
-        : 'bg-gradient-to-b from-indigo-800/10 via-indigo-100/20 to-purple-100/20 dark:from-indigo-900 dark:via-gray-800 dark:to-purple-900/20'
-      }
+      min-h-screen w-screen page-background theme-shell
       transition-colors duration-300 flex flex-col
       ${isAboutPage ? 'justify-between' : ''}
     `}>

@@ -1,22 +1,20 @@
-/* BackgroundFix.css - Ensures consistent background colors */
-html, body {
-  background-color: #ffffff !important;
+/* BackgroundFix.css - Theme-aware fallback canvas */
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
-body.dark, html.dark {
-  background-color: #1a202c !important;
+html.light,
+body.light {
+  background-color: #f4f8ff;
 }
 
-/* Override the default root background color */
-:root {
-  background-color: #ffffff !important;
+html.dark,
+body.dark {
+  background-color: #081125;
 }
 
-/* Fix for HomePage background */
 .homepage-root {
-  background-color: #ffffff !important;
-}
-
-.dark .homepage-root {
-  background-color: #1a202c !important;
+  background-color: transparent;
 }

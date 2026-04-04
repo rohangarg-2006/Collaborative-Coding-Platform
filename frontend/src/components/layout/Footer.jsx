@@ -8,10 +8,10 @@ const Footer = () => {
   const isEditorPage = location.pathname.includes('/editor');
     return (
     <footer className={`
-      text-center py-4 z-10 w-full mt-auto sticky-footer
-      ${isAboutPage ? 'text-gray-200 bg-gray-900 border-t border-gray-600' : 'text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 border-t border-gray-300 dark:border-gray-700'} 
+      text-center py-4 z-10 w-full mt-auto sticky-footer theme-footer
       shadow-inner 
       ${isProfilePage ? 'mt-12' : ''}
+      ${isAboutPage ? 'theme-footer-about' : ''}
     `}>
       <div className="container mx-auto">
         &copy; {new Date().getFullYear()} <span className="font-semibold text-indigo-700 dark:text-indigo-300">CodeCollab</span> &mdash; Collaborative Coding Platform

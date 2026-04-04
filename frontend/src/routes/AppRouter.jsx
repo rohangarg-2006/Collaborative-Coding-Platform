@@ -25,11 +25,27 @@ import { useAuth } from '../context/AuthContext';
 const AppRouter = () => {
   // Shared state between routes that should persist
   const [theme, setTheme] = React.useState(
-    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"
+    () => {
+      const savedTheme = window.localStorage.getItem('theme');
+      if (savedTheme === 'dark' || savedTheme === 'light') {
+        return savedTheme;
+      }
+      return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
   );
   
   React.useEffect(() => {
-    document.documentElement.classList.toggle("dark", theme === "dark");
+    const isDark = theme === 'dark';
+    const root = document.documentElement;
+    const body = document.body;
+
+    root.classList.toggle('dark', isDark);
+    root.classList.toggle('light', !isDark);
+    body.classList.toggle('dark', isDark);
+    body.classList.toggle('light', !isDark);
+    root.style.colorScheme = isDark ? 'dark' : 'light';
+
+    window.localStorage.setItem('theme', theme);
   }, [theme]);
   
   // Get authentication state from context

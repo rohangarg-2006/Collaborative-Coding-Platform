@@ -556,7 +556,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
   
   return (
     <Layout theme={theme} setTheme={setTheme}>
-      <div className="container mx-auto px-4 py-8 min-h-screen bg-gradient-to-b from-[#4338ca] via-[#23283a] to-[#1a1333]">
+      <div className="container mx-auto px-4 py-8 min-h-screen bg-gradient-to-b from-slate-50 via-blue-50 to-cyan-50 dark:from-[#4338ca] dark:via-[#23283a] dark:to-[#1a1333] transition-colors duration-300">
         {/* Navigation */}
         <div className="mb-8 flex flex-wrap gap-4">
           <Link to="/" className="px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition flex items-center">
@@ -573,7 +573,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
           </Link>
         </div>
           {/* Header */}        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-white">My Projects</h1>
+          <h1 className="text-2xl font-bold text-slate-800 dark:text-white">My Projects</h1>
           <div className="flex space-x-3">
             <button 
               onClick={() => setIsJoinModalOpen(true)}
@@ -622,7 +622,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
           </div>
         )}
           {/* Empty state */}
-        {!isLoading && projects.length === 0 && (          <div className="text-center py-16 bg-white dark:bg-gray-800 rounded-lg shadow-md">
+        {!isLoading && projects.length === 0 && (          <div className="text-center py-16 bg-white/95 dark:bg-gray-800/90 rounded-lg shadow-md border border-slate-200/70 dark:border-gray-700">
             <svg className="mx-auto h-16 w-16 text-gray-400 dark:text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
             </svg>
@@ -651,7 +651,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
             {projects.map((project) => (
               <div 
                 key={project._id} 
-                className="bg-white/80 dark:bg-gray-800/80 backdrop-blur-md rounded-lg shadow-md hover:shadow-lg transition overflow-hidden flex flex-col"
+                className="bg-white/90 dark:bg-gray-800/85 backdrop-blur-md rounded-lg shadow-md hover:shadow-xl border border-slate-200/70 dark:border-gray-700 transition overflow-hidden flex flex-col"
               >
                 <Link 
                   to={`/editor/${project._id}`}
@@ -779,7 +779,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
                     <span className="text-gray-500 dark:text-gray-400">
                       {getTimeAgo(project.updatedAt)}
                     </span>
-                  </div>                </Link>                <div className="mt-2 p-4 border-t border-gray-100 dark:border-gray-700">
+                  </div>                </Link>                <div className="mt-2 p-4 border-t border-slate-200 dark:border-gray-700 bg-white/60 dark:bg-gray-800/50">
                   <div className="flex flex-wrap justify-between items-center mb-2">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
                       {project.createdAt ? `Created: ${new Date(project.createdAt).toLocaleDateString()}` : ''}
@@ -796,7 +796,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
                     </div>
                   </div>                  {/* Invite Code Section - Made more prominent, but only for public projects */}
                   {project.inviteCode && project.isPublic !== false && (
-                    <div className="mt-3 mb-3 p-2 bg-indigo-50 dark:bg-indigo-900/30 rounded-md border border-indigo-100 dark:border-indigo-800">
+                    <div className="mt-3 mb-3 p-2 bg-indigo-50/80 dark:bg-indigo-900/30 rounded-md border border-indigo-200 dark:border-indigo-800">
                       <div className="flex flex-col">
                         <div className="flex items-center justify-between mb-1">
                           <span className="text-xs font-medium text-indigo-700 dark:text-indigo-300">
@@ -817,7 +817,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
                             Copy Code
                           </button>
                         </div>
-                        <div className="w-full text-center px-3 py-2 bg-gray-100 dark:bg-gray-700 font-mono text-sm rounded-md select-all">
+                        <div className="w-full text-center px-3 py-2 bg-slate-100 dark:bg-gray-700 font-mono text-sm rounded-md select-all text-slate-700 dark:text-slate-100">
                           {project.inviteCode}
                         </div>
                       </div>
@@ -826,7 +826,7 @@ const ProjectListPage = ({ theme = 'light', setTheme = () => {} }) => {
                   
                   {/* Show private project notice */}
                   {project.isPublic === false && (
-                    <div className="mt-3 mb-3 p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded-md border border-yellow-100 dark:border-yellow-800">
+                    <div className="mt-3 mb-3 p-2 bg-yellow-50 dark:bg-yellow-900/30 rounded-md border border-yellow-200 dark:border-yellow-800">
                       <div className="flex items-center">
                         <svg className="h-4 w-4 text-yellow-500 mr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                           <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />

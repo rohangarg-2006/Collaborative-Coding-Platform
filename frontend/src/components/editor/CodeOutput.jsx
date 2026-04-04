@@ -193,6 +193,32 @@ const CodeOutput = ({ code, language, theme }) => {
   const [stdin, setStdin] = useState('');
   const [lastExecuted, setLastExecuted] = useState(null);
   const [showInput, setShowInput] = useState(false);
+
+  const isDark = theme === 'dark';
+  const ui = {
+    headerBg: isDark ? '#1e293b' : '#eef4ff',
+    headerBorder: isDark ? '#334155' : '#cfdcf5',
+    headerText: isDark ? '#f8fafc' : '#1e3a8a',
+    panelBg: isDark ? '#1e293b' : '#ffffff',
+    panelBorder: isDark ? '#334155' : '#d7e3f8',
+    textPrimary: isDark ? '#f8fafc' : '#0f172a',
+    textSecondary: isDark ? '#94a3b8' : '#64748b',
+    inputBg: isDark ? '#0f172a' : '#f8fbff',
+    inputText: isDark ? '#e2e8f0' : '#1f2937',
+    inputBorder: isDark ? '#475569' : '#cbd5e1',
+    outputBg: isDark ? '#0f172a' : '#f8fbff',
+    outputText: isDark ? '#e2e8f0' : '#0f172a',
+    outputBorder: isDark ? '#334155' : '#dbe7fb',
+    errorBg: isDark ? '#350c0c' : '#fff1f2',
+    errorText: isDark ? '#fecaca' : '#b91c1c',
+    errorBorder: isDark ? '#713131' : '#fca5a5',
+    statusBg: isDark ? 'rgba(15, 23, 42, 0.4)' : 'rgba(241, 245, 255, 0.95)',
+    statusBorder: isDark ? '#334155' : '#d2def2',
+    statusItemBg: isDark ? 'rgba(30, 41, 59, 0.5)' : 'rgba(255, 255, 255, 0.9)',
+    statusItemBorder: isDark ? 'rgba(51, 65, 85, 0.5)' : 'rgba(203, 213, 225, 0.9)',
+    mutedCardBg: isDark ? '#1a2234' : '#f6f9ff',
+    mutedCardBorder: isDark ? '#334155' : '#cfdcf5'
+  };
   
   // Toggle input visibility
   const toggleInput = useCallback(() => {
@@ -268,9 +294,9 @@ const CodeOutput = ({ code, language, theme }) => {
         position: 'sticky',
         top: 0,
         zIndex: 10,
-        backgroundColor: '#1e293b',
+        backgroundColor: ui.headerBg,
         padding: '8px',
-        borderBottom: '1px solid #334155',
+        borderBottom: `1px solid ${ui.headerBorder}`,
         boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
         flexDirection: 'column'
       }}>
@@ -282,7 +308,7 @@ const CodeOutput = ({ code, language, theme }) => {
           marginBottom: '8px'
         }}>
           <span style={{
-            color: '#f8fafc',
+            color: ui.headerText,
             fontSize: '16px',
             fontWeight: 700,
             letterSpacing: '0.5px',
@@ -357,12 +383,12 @@ const CodeOutput = ({ code, language, theme }) => {
       </div>
 
       {showInput && (
-        <div style={styles.inputPanel}>
-          <div style={styles.outputHeader}>
+        <div style={{ ...styles.inputPanel, backgroundColor: ui.panelBg, border: `1px solid ${ui.panelBorder}` }}>
+          <div style={{ ...styles.outputHeader, color: ui.textSecondary }}>
             <span>Program Input</span>
           </div>
           <textarea
-            style={styles.textarea}
+            style={{ ...styles.textarea, backgroundColor: ui.inputBg, color: ui.inputText, border: `1px solid ${ui.inputBorder}` }}
             placeholder="Enter input for your program here..."
             value={stdin}
             onChange={(e) => setStdin(e.target.value)}
@@ -371,7 +397,7 @@ const CodeOutput = ({ code, language, theme }) => {
         </div>
       )}
 
-      <div style={styles.panel}>
+      <div style={{ ...styles.panel, backgroundColor: ui.panelBg, border: `1px solid ${ui.panelBorder}`, color: ui.textPrimary }}>
         {isExecuting && (
           <div style={styles.loadingIndicator}>
             <div className="loading-spinner"></div>
@@ -383,7 +409,7 @@ const CodeOutput = ({ code, language, theme }) => {
           <>
             {output && (
               <div>
-                <div style={styles.outputHeader}>
+                <div style={{ ...styles.outputHeader, color: ui.textSecondary }}>
                   <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: 0.8 }}>
                       <path d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm0 2v14h14V5H5zm2 2h10v2H7V7zm0 4h10v2H7v-2zm0 4h7v2H7v-2z"/>
@@ -391,13 +417,13 @@ const CodeOutput = ({ code, language, theme }) => {
                     Output
                   </span>
                 </div>
-                <pre className="output-content" style={styles.outputContent}>{output}</pre>
+                <pre className="output-content" style={{ ...styles.outputContent, backgroundColor: ui.outputBg, color: ui.outputText, border: `1px solid ${ui.outputBorder}` }}>{output}</pre>
               </div>
             )}
             
             {error && (
               <div style={{ marginTop: output ? '15px' : 0 }}>
-                <div style={styles.outputHeader}>
+                <div style={{ ...styles.outputHeader, color: ui.textSecondary }}>
                   <span style={{ color: '#f87171', display: 'flex', alignItems: 'center', gap: '6px' }}>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ opacity: 0.8 }}>
                       <path d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10S2 17.5 2 12 6.5 2 12 2zm0 2c-4.4 0-8 3.6-8 8s3.6 8 8 8 8-3.6 8-8-3.6-8-8-8zm-1 13v-2h2v2h-2zm0-4V7h2v6h-2z"/>
@@ -405,14 +431,14 @@ const CodeOutput = ({ code, language, theme }) => {
                     Error
                   </span>
                 </div>
-                <pre className="output-content" style={styles.errorContent}>{error}</pre>
+                <pre className="output-content" style={{ ...styles.errorContent, backgroundColor: ui.errorBg, color: ui.errorText, border: `1px solid ${ui.errorBorder}` }}>{error}</pre>
               </div>
             )}
             
             {executionStats && (
-              <div style={styles.statusBar}>
-                <div className="status-item" style={{...styles.statusItem, '--index': 0}}>
-                  <span style={styles.statusLabel}>
+              <div style={{ ...styles.statusBar, borderTop: `1px solid ${ui.statusBorder}`, backgroundColor: ui.statusBg }}>
+                <div className="status-item" style={{...styles.statusItem, '--index': 0, backgroundColor: ui.statusItemBg, border: `1px solid ${ui.statusItemBorder}`}}>
+                  <span style={{ ...styles.statusLabel, color: ui.textSecondary }}>
                     <span className={`status-badge ${executionStats.status?.id === 3 ? 'success' : 'error'}`}>
                       {executionStats.status?.id === 3 ? (
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
@@ -435,8 +461,8 @@ const CodeOutput = ({ code, language, theme }) => {
                 </div>
                 
                 {executionStats.time !== undefined && (
-                  <div className="status-item" style={{...styles.statusItem, '--index': 1}}>
-                    <span style={styles.statusLabel}>
+                  <div className="status-item" style={{...styles.statusItem, '--index': 1, backgroundColor: ui.statusItemBg, border: `1px solid ${ui.statusItemBorder}`}}>
+                    <span style={{ ...styles.statusLabel, color: ui.textSecondary }}>
                       <span className="status-badge info">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
                           <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm0 18c-4.4 0-8-3.6-8-8s3.6-8 8-8 8 3.6 8 8-3.6 8-8 8zm.5-13H11v6l5.2 3.2.8-1.3-4.5-2.7V7z"/>
@@ -444,13 +470,13 @@ const CodeOutput = ({ code, language, theme }) => {
                       </span>
                       Time:
                     </span>
-                    <span style={styles.statusValue}>{executionStats.time}s</span>
+                    <span style={{ ...styles.statusValue, color: ui.outputText }}>{executionStats.time}s</span>
                   </div>
                 )}
                 
                 {executionStats.memory !== undefined && (
-                  <div className="status-item" style={{...styles.statusItem, '--index': 2}}>
-                    <span style={styles.statusLabel}>
+                  <div className="status-item" style={{...styles.statusItem, '--index': 2, backgroundColor: ui.statusItemBg, border: `1px solid ${ui.statusItemBorder}`}}>
+                    <span style={{ ...styles.statusLabel, color: ui.textSecondary }}>
                       <span className="status-badge info">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
                           <path d="M2 9h2v6H2V9zm3 0h1v6H5V9zm2 0h1v6H7V9zm2 0h2v6H9V9zm3 0h1v6h-1V9zm2 0h1v6h-1V9zm2 0h1v6h-1V9zm2 0h2v6h-2V9zM4 5h16v2H4V5zm0 12h16v2H4v-2z"/>
@@ -458,12 +484,12 @@ const CodeOutput = ({ code, language, theme }) => {
                       </span>
                       Memory:
                     </span>
-                    <span style={styles.statusValue}>{Math.round(executionStats.memory / 1024)} KB</span>
+                    <span style={{ ...styles.statusValue, color: ui.outputText }}>{Math.round(executionStats.memory / 1024)} KB</span>
                   </div>
                 )}
                 
-                <div className="status-item" style={{...styles.statusItem, '--index': 3}}>
-                  <span style={styles.statusLabel}>
+                <div className="status-item" style={{...styles.statusItem, '--index': 3, backgroundColor: ui.statusItemBg, border: `1px solid ${ui.statusItemBorder}`}}>
+                  <span style={{ ...styles.statusLabel, color: ui.textSecondary }}>
                     <span className="status-badge info">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="10" height="10" fill="currentColor">
                         <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
@@ -471,13 +497,13 @@ const CodeOutput = ({ code, language, theme }) => {
                     </span>
                     Exit Code:
                   </span>
-                  <span style={styles.statusValue}>{executionStats.exitCode}</span>
+                  <span style={{ ...styles.statusValue, color: ui.outputText }}>{executionStats.exitCode}</span>
                 </div>
               </div>
             )}
             
             {lastExecuted && !output && !error && (
-              <div style={{ padding: '20px', textAlign: 'center', color: '#94a3b8' }}>
+              <div style={{ padding: '20px', textAlign: 'center', color: ui.textSecondary }}>
                 <p>Program executed successfully, but produced no output.</p>
               </div>
             )}
@@ -489,12 +515,12 @@ const CodeOutput = ({ code, language, theme }) => {
                   flexDirection: 'column', 
                   alignItems: 'center',
                   gap: '15px',
-                  backgroundColor: '#1a2234',
+                  backgroundColor: ui.mutedCardBg,
                   borderRadius: '6px',
                   padding: '20px',
-                  border: '1px dashed #334155'
+                  border: `1px dashed ${ui.mutedCardBorder}`
                 }}>
-                  <div style={{ fontSize: '16px', color: '#94a3b8', marginBottom: '5px' }}>
+                  <div style={{ fontSize: '16px', color: ui.textSecondary, marginBottom: '5px' }}>
                     Ready to execute your {language || 'code'}
                   </div>
                   
@@ -510,7 +536,7 @@ const CodeOutput = ({ code, language, theme }) => {
                       display: 'flex', 
                       alignItems: 'center', 
                       gap: '10px',
-                      color: '#64748b',
+                      color: ui.textSecondary,
                       fontSize: '14px'
                     }}>
                       <span>✓</span>
@@ -521,7 +547,7 @@ const CodeOutput = ({ code, language, theme }) => {
                       display: 'flex', 
                       alignItems: 'center', 
                       gap: '10px',
-                      color: '#64748b',
+                      color: ui.textSecondary,
                       fontSize: '14px'
                     }}>
                       <span>✓</span>
@@ -533,7 +559,7 @@ const CodeOutput = ({ code, language, theme }) => {
                         display: 'flex', 
                         alignItems: 'center', 
                         gap: '10px',
-                        color: '#64748b',
+                        color: ui.textSecondary,
                         fontSize: '14px'
                       }}>
                         <span>✓</span>
@@ -555,7 +581,7 @@ const CodeOutput = ({ code, language, theme }) => {
                     Run Code
                   </button>
                   
-                  <p style={{ color: '#64748b', fontSize: '12px', marginTop: '10px' }}>
+                  <p style={{ color: ui.textSecondary, fontSize: '12px', marginTop: '10px' }}>
                     Output will always be displayed in this panel
                   </p>
                 </div>

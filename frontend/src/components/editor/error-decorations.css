@@ -1,0 +1,426 @@
+/* Enhanced Error and Warning Decorations for Monaco Editor */
+
+/* Base error highlighting - minimal, just red underline */
+.monaco-editor .error-highlight {
+  background-color: transparent !important;
+  opacity: 1 !important;
+  border-left: none !important;
+  border-bottom: 2px red wavy !important;
+}
+
+/* Hide all error decorations with text/messages */
+.monaco-editor .error-highlight-text,
+.monaco-editor .error-message-text,
+.monaco-editor .inline-error-message,
+.monaco-editor .squiggly-error-text,
+.monaco-editor .squiggly-error-widget,
+.monaco-editor .zone-widget,
+.monaco-editor .peek-view-widget {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide error message lines that appear after code */
+.monaco-decoration-inline-message {
+  display: none !important;
+}
+
+.monaco-editor .view-lines .inline-decoration-margin {
+  display: none !important;
+}
+
+/* Ensure no text appears after the code for errors */
+.monaco-editor .region-match,
+.monaco-editor .region-hint {
+  display: none !important;
+}
+
+/* Hide purple/blue error message text that appears after code */
+.monaco-editor .view-line span {
+  color: inherit !important;
+}
+
+/* Hide any inline text that looks like error messages */
+.monaco-editor .view-line span {
+  /* Prevent colored error text from showing */
+}
+
+.monaco-editor .view-line {
+  /* Ensure no overflow of error text */
+  overflow: hidden !important;
+}
+
+/* Specifically hide blue/purple error message text that appears after code */
+.monaco-editor .mtk14,
+.monaco-editor .mtk15,
+.monaco-editor .mtk16,
+.monaco-editor .squiggly-error-text,
+.monaco-editor .error-message-inline,
+.monaco-editor .diagnostic-text {
+  display: none !important;
+  visibility: hidden !important;
+  font-size: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  line-height: 0 !important;
+  max-width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Hide entire decorations blocks that contain error messages */
+.monaco-editor .decorationsBlock {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Target and hide any additional text after the main line content */  
+.monaco-editor .line-content .error-text,
+.monaco-editor .line-content .error-message {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Suppress after pseudo-elements */
+.monaco-editor .view-line::after,
+.monaco-editor .line-content::after {
+  content: none !important;
+  display: none !important;
+}
+
+body.dark .monaco-editor .error-highlight {
+  background-color: transparent !important;
+  border-bottom: 2px red wavy !important;
+}
+
+/* Hide inline message text - comprehensive */
+.monaco-editor .squiggly-error-text,
+.monaco-editor .error-message-text,
+.monaco-editor .diagnostic-message,
+.monaco-editor .inline-error-message,
+.monaco-editor .problem-widget,
+.monaco-editor .marker-decoration-text {
+  display: none !important;
+  visibility: hidden !important;
+  font-size: 0 !important;
+  height: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Suppress any text that appears after underlined errors */
+.monaco-editor .view-line .error-message::before,
+.monaco-editor .view-line .error-message::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Inline error squiggly underline - simple red wavy line */
+.monaco-editor .inline-error-highlight {
+  text-decoration: underline wavy #ff0000 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+  color: inherit !important;
+  font-weight: normal !important;
+}
+
+body.dark .monaco-editor .inline-error-highlight {
+  text-decoration-color: #ff0000 !important;
+  color: inherit !important;
+}
+
+/* Squiggly error decorations */
+.monaco-editor .squiggly-error {
+  text-decoration: underline wavy #ff0000 !important;
+  text-decoration-thickness: 3px !important;
+  text-underline-offset: 3px !important;
+  animation: error-wiggle 0.3s ease-in-out;
+}
+
+@keyframes error-wiggle {
+  0%, 100% { text-underline-offset: 2px; }
+  50% { text-underline-offset: 4px; }
+}
+
+/* Wavy error underlines */
+.monaco-editor .wavy-error {
+  text-decoration: underline wavy #dc2626 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+}
+
+body.dark .monaco-editor .wavy-error {
+  text-decoration-color: #ff6666 !important;
+}
+
+/* Warning highlights - minimal yellow underline */
+.monaco-editor .warning-highlight {
+  background-color: transparent !important;
+  border-bottom: 2px #ffaa00 wavy !important;
+}
+
+body.dark .monaco-editor .warning-highlight {
+  background-color: transparent !important;
+  border-bottom: 2px #ffaa00 wavy !important;
+}
+
+/* Warning inline styling - simple wavy underline */
+.monaco-editor .inline-warning-highlight {
+  text-decoration: underline wavy #ffaa00 !important;
+  text-decoration-thickness: 2px !important;
+  text-underline-offset: 2px !important;
+  color: inherit !important;
+  font-weight: normal !important;
+}
+
+body.dark .monaco-editor .inline-warning-highlight {
+  text-decoration-color: #ffaa00 !important;
+  color: inherit !important;
+}
+
+/* Error line background - removed */
+.monaco-editor .error-line {
+  background-color: transparent !important;
+  opacity: 0 !important;
+}
+
+body.dark .monaco-editor .error-line {
+  background-color: transparent !important;
+  opacity: 0 !important;
+}
+
+/* Glyph margin errors - hidden */
+.monaco-editor .glyph-margin-error {
+  display: none !important;
+}
+
+/* Glyph margin warnings - hidden */
+.monaco-editor .glyph-margin-warning {
+  display: none !important;
+}
+
+/* Language-specific error colors */
+
+/* Python errors */
+.monaco-editor .python-error,
+.monaco-editor.language-python .error-highlight,
+.monaco-editor[data-language="python"] .error-highlight {
+  background: linear-gradient(135deg, #ff6b6b 0%, #dd3333 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #ff3333 !important;
+}
+
+/* C++ errors */
+.monaco-editor .cpp-error,
+.monaco-editor.language-cpp .error-highlight,
+.monaco-editor[data-language="cpp"] .error-highlight {
+  background: linear-gradient(135deg, #f06292 0%, #d81b60 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #f06292 !important;
+}
+
+/* Java errors */
+.monaco-editor .java-error,
+.monaco-editor.language-java .error-highlight,
+.monaco-editor[data-language="java"] .error-highlight {
+  background: linear-gradient(135deg, #ba68c8 0%, #8e24aa 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #ba68c8 !important;
+}
+
+/* JavaScript/TypeScript errors */
+.monaco-editor .javascript-error,
+.monaco-editor.language-javascript .error-highlight,
+.monaco-editor[data-language="javascript"] .error-highlight {
+  background: linear-gradient(135deg, #ffc107 0%, #ff9800 100%) !important;
+  opacity: 0.12 !important;
+  border-left-color: #ffc107 !important;
+}
+
+/* C# errors */
+.monaco-editor .csharp-error,
+.monaco-editor.language-csharp .error-highlight,
+.monaco-editor[data-language="csharp"] .error-highlight {
+  background: linear-gradient(135deg, #64b5f6 0%, #1976d2 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #64b5f6 !important;
+}
+
+/* Go errors */
+.monaco-editor .go-error,
+.monaco-editor.language-go .error-highlight,
+.monaco-editor[data-language="go"] .error-highlight {
+  background: linear-gradient(135deg, #00bcd4 0%, #0097a7 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #00bcd4 !important;
+}
+
+/* Rust errors */
+.monaco-editor .rust-error,
+.monaco-editor.language-rust .error-highlight,
+.monaco-editor[data-language="rust"] .error-highlight {
+  background: linear-gradient(135deg, #ff7043 0%, #e64a19 100%) !important;
+  opacity: 0.15 !important;
+  border-left-color: #ff7043 !important;
+}
+
+/* Override rule to show errors when showErrors flag is set */
+.monaco-editor.show-errors .error-highlight,
+.monaco-editor.show-errors .inline-error-highlight,
+.monaco-editor.show-errors .wavy-error,
+.monaco-editor.show-errors .error-line {
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Hide errors when showErrors is false */
+.monaco-editor:not(.show-errors) .error-highlight,
+.monaco-editor:not(.show-errors) .inline-error-highlight,
+.monaco-editor:not(.show-errors) .wavy-error,
+.monaco-editor:not(.show-errors) .error-line {
+  display: none !important;
+  opacity: 0 !important;
+}
+
+/* Problem outline rendering in overview ruler */
+.monaco-editor .error-overview {
+  background-color: #ff4444 !important;
+  border: 1px solid #cc0000 !important;
+}
+
+.monaco-editor .warning-overview {
+  background-color: #ffaa00 !important;
+  border: 1px solid #ff8800 !important;
+}
+
+/* Hover tooltips - hidden */
+.monaco-editor .error-hover,
+.monaco-editor .hoverPart .hover-contents,
+.monaco-editor .parameter-hints-widget {
+  display: none !important;
+}
+
+/* Hide all error message widgets and popups */
+.monaco-editor .squiggly-error-down-arrow,
+.monaco-editor .error-message,
+.monaco-editor .squiggly-error,
+.monaco-editor .zone,
+.monaco-editor .marker-zone,
+.monaco-editor .peekview-widget,
+.monaco-editor .markers-panel,
+.monaco-editor .decoration-line,
+.monaco-editor .inlineDecorationsBlock,
+.monaco-editor .codicon-error,
+.monaco-editor .codicon-warning,
+.monaco-editor .squiggly-underline,
+.monaco-editor [role="tooltip"],
+.monaco-editor .suggest-widget,
+.monaco-editor .word-highlight-widget {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide text content for error annotations */
+.monaco-editor .squiggly-error-text-content,
+.monaco-editor .error-annotation,
+.monaco-editor .marker-annotation {
+  font-size: 0 !important;
+  line-height: 0 !important;
+  height: 0 !important;
+  display: none !important;
+}
+
+/* Hide any inline text after code that appears to be error messages */
+.monaco-editor .view-line {
+  overflow: visible !important;
+}
+
+.monaco-editor .view-line > span[style*="color"] {
+  /* Hide colored error text that appears inline */
+}
+
+/* Specifically hide the error message text that appears after the code */
+.monaco-editor .inlineDecorationsMargin {
+  display: none !important;
+}
+
+.monaco-editor .inline-message,
+.monaco-editor .inline-message-text {
+  display: none !important;
+  visibility: hidden !important;
+}
+
+/* Hide text nodes in the view-lines that contain error messages */
+.monaco-editor .view-lines > div > .error-message-text {
+  display: none !important;
+}
+
+/* Hide any text that appears as an inline decoration after code */
+.monaco-editor .line-content::after,
+.monaco-editor .inlineDecorationsMargin::before {
+  display: none !important;
+}
+
+/* Specifically hide error text nodes */
+.monaco-editor .view-line .decorationsBlock {
+  display: none !important;
+}
+.monaco-editor .error-highlight,
+.monaco-editor .inline-error-highlight,
+.monaco-editor .wavy-error {
+  z-index: 100 !important;
+}
+
+/* Hide all error message styling */
+.monaco-editor .error-message {
+  display: none !important;
+  color: transparent !important;
+  font-weight: normal !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+body.dark .monaco-editor .error-message {
+  display: none !important;
+  color: transparent !important;
+}
+
+/* Hide all text styling on errors */
+.monaco-editor .error-highlight ~ *,
+.monaco-editor .squiggly-error ~ *,
+.monaco-editor .wavy-error ~ * {
+  color: transparent !important;
+  font-size: 0 !important;
+  line-height: 0 !important;
+}
+
+/* Animation: No pulse effect */
+@keyframes error-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 1; }
+}
+
+.monaco-editor.show-errors .error-highlight {
+  animation: error-pulse 2s ease-in-out infinite;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .monaco-editor .error-highlight,
+  .monaco-editor .warning-highlight {
+    opacity: 0.2 !important;
+  }
+
+  .monaco-editor .inline-error-highlight,
+  .monaco-editor .inline-warning-highlight {
+    text-decoration-thickness: 2px !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .monaco-editor .error-highlight,
+  .monaco-editor .warning-highlight {
+    background: none !important;
+    border: 1px dashed #ccc !important;
+  }
+}

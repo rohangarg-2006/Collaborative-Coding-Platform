@@ -1,4 +1,5 @@
 import React from 'react';
+import './user-cursor.css';
 
 const UserCursor = ({ user, position }) => {
   if (!user || !position) {
@@ -7,15 +8,15 @@ const UserCursor = ({ user, position }) => {
 
   // Generate a stable color from the user's ID
   const generateColor = (userId) => {
-    const colors = [
-      'bg-red-500',
-      'bg-blue-500',
-      'bg-green-500',
-      'bg-yellow-500',
-      'bg-purple-500',
-      'bg-pink-500',
-      'bg-indigo-500',
-      'bg-teal-500'
+    const colorClasses = [
+      { bg: '#ef4444', name: 'red' },      // Red
+      { bg: '#3b82f6', name: 'blue' },     // Blue
+      { bg: '#10b981', name: 'green' },    // Green
+      { bg: '#f59e0b', name: 'amber' },    // Amber
+      { bg: '#8b5cf6', name: 'purple' },   // Purple
+      { bg: '#ec4899', name: 'pink' },     // Pink
+      { bg: '#06b6d4', name: 'cyan' },     // Cyan
+      { bg: '#14b8a6', name: 'teal' }      // Teal
     ];
     
     // Simple hash function to get a consistent color for each user
@@ -26,32 +27,51 @@ const UserCursor = ({ user, position }) => {
     }
     
     // Use absolute value and modulo to get index in color array
-    const colorIndex = Math.abs(hash) % colors.length;
-    return colors[colorIndex];
+    const colorIndex = Math.abs(hash) % colorClasses.length;
+    return colorClasses[colorIndex];
   };
 
   const cursorColor = generateColor(user.id);
   
+  // Ensure position values are valid numbers
+  const left = typeof position.left === 'number' ? position.left : 0;
+  const top = typeof position.top === 'number' ? position.top : 0;
+
   return (
     <div
+      className="user-cursor-container"
       style={{
-        position: 'absolute',
-        left: `${position.left}px`,
-        top: `${position.top}px`,
-        zIndex: 10,
+        position: 'fixed',
+        left: `${left}px`,
+        top: `${top}px`,
+        zIndex: 1000,
         pointerEvents: 'none',
+        // Use fixed positioning for page-absolute coordinates
       }}
-      className="flex flex-col items-start"
     >
-      {/* Cursor */}
-      <div className={`w-0.5 h-5 ${cursorColor}`} />
-      
-      {/* Username tag */}
+      {/* Cursor Line - Accurately positioned */}
       <div 
-        className={`${cursorColor} text-white text-xs px-1 py-0.5 rounded truncate max-w-[100px]`}
-        style={{ marginTop: '-5px' }}
+        className="cursor-line"
+        style={{
+          backgroundColor: cursorColor.bg,
+          boxShadow: `0 0 6px ${cursorColor.bg}`,
+          height: position.height || '20px'
+        }}
+      />
+      
+      {/* Username Tag */}
+      <div 
+        className="cursor-label"
+        style={{
+          backgroundColor: cursorColor.bg,
+          color: 'white',
+          boxShadow: `0 2px 8px ${cursorColor.bg}40`,
+        }}
+        title={`${user.username || user.name || 'Anonymous'} is here`}
       >
-        {user.username || user.name || 'Anonymous'}
+        <span className="cursor-username">
+          {user.username || user.name || 'Anonymous'}
+        </span>
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import { isLanguageTransitionInProgress } from '../../utils/languageTransition';
 import '../../editor-enhanced.css'; // Import enhanced editor styles
 import '../../editor-enhancements.css'; // Import additional editor enhancements
 import '../../editor-final-polish.css'; // Import final polish styles
+import './error-decorations.css'; // Import enhanced error highlighting styles
 
 // Role indicator component for editor - empty implementation to remove "View Only" text
 const RoleIndicator = ({ role }) => {
@@ -193,6 +194,23 @@ const CodeEditor = ({
       return () => clearTimeout(setupTimer);
     }
   }, [language, showErrors, editorRef.current, code]);
+
+  // Effect to toggle show-errors class on editor DOM
+  useEffect(() => {
+    if (editorRef.current) {
+      const editorDom = editorRef.current.getDomNode();
+      if (editorDom) {
+        const monacoEditor = editorDom.closest('.monaco-editor');
+        if (monacoEditor) {
+          if (showErrors) {
+            monacoEditor.classList.add('show-errors');
+          } else {
+            monacoEditor.classList.remove('show-errors');
+          }
+        }
+      }
+    }
+  }, [showErrors]);
   
   // Setup error decorations for all languages
   const setupErrorDecorators = (monaco) => {
@@ -374,9 +392,9 @@ const CodeEditor = ({
       suggestOnTriggerCharacters: true,
       lineNumbers: "on",
       readOnly: false,
-      renderValidationDecorations: showErrors ? "on" : "off",
-      glyphMargin: showErrors,
-      lightbulb: { enabled: showErrors },
+      renderValidationDecorations: showErrors ? "editable" : "off",
+      glyphMargin: false,
+      lightbulb: { enabled: false },
       smoothScrolling: true,
       cursorSmoothCaretAnimation: "on",
       automaticLayout: true,
@@ -391,10 +409,10 @@ const CodeEditor = ({
         shareSuggestSelections: true
       },
       hover: {
-        enabled: true,
-        delay: 300,
-        sticky: true
+        enabled: false
       },
+      inlineMessages: false,
+      renderInlineDecorations: "off",
       semanticHighlighting: {
         enabled: true
       },

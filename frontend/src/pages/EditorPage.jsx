@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { createPortal } from 'react-dom';
 import CodeEditor from '../components/editor/CodeEditor';
 import Layout from '../components/layout/Layout';
 import LanguageChangeNotification from '../components/editor/LanguageChangeNotification';
@@ -13,9 +14,11 @@ import ShareProjectModal from '../components/editor/ShareProjectModal';
 import CollaboratorsPanel from '../components/editor/CollaboratorsPanel';
 import RoleChangeNotification from '../components/editor/RoleChangeNotification';
 import CodeOutput from '../components/editor/CodeOutput'; // Import CodeOutput component
+import ErrorPanel from '../components/editor/ErrorPanel'; // Import ErrorPanel component
 import ErrorBoundary from '../components/common/ErrorBoundary'; // Add ErrorBoundary import
 import { STARTER_CODE, LANGUAGES } from '../utils/constants';
 import '../components/editor/role-indicator.css';
+import '../components/editor/editor-layout.css'; // Import editor layout CSS
 import '../editor-output-layout.css';
 import { 
   applyDiagnostics, 
@@ -24,6 +27,11 @@ import {
   generateTestErrors,
   downloadCodeAsFile 
 } from '../utils/editorUtils';
+import {
+  extractErrorsFromMarkers,
+  sortErrors,
+  navigateToError
+} from '../utils/errorExtractionUtils'; // Import error extraction utilities
 import {
   handleLanguageTransition,
   clearAllErrorMarkers,
@@ -63,6 +71,9 @@ const EditorPage = ({ theme, setTheme }) => {
   // Initialize with output panel hidden by default
   const [showOutputPanel, setShowOutputPanel] = useState(false);
   
+  // State for storing extracted errors from Monaco editor
+  const [extractedErrors, setExtractedErrors] = useState([]);
+  
   // Track previous language to detect changes
   const prevLanguageRef = useRef(language);
   // Track code changes for debouncing
@@ -100,20 +111,42 @@ const EditorPage = ({ theme, setTheme }) => {
     if (!editorRef.current || !position) return null;
     
     try {
-      // Convert position to viewport coordinates
+      // Get Monaco's rendering coordinates for the position
       const coordinates = editorRef.current.getScrolledVisiblePosition(position);
       
       if (!coordinates) return null;
+
+      // Get the editor's DOM container
+      const editorDom = editorRef.current.getDomNode();
+      if (!editorDom) return null;
+
+      // Get the editor's bounding rectangle to account for its position in the page
+      const editorRect = editorDom.getBoundingClientRect();
       
-      // Get editor container position for relative positioning
-      const containerRect = editorContainerRef.current?.getBoundingClientRect();
+      // Get the viewport/scroll container within the editor
+      const viewportElement = editorDom.querySelector('.overflow-guard');
+      let viewportOffset = { top: 0, left: 0 };
       
-      if (!containerRect) return coordinates;
-      
-      // Adjust for container position
+      if (viewportElement) {
+        const viewportRect = viewportElement.getBoundingClientRect();
+        const editorContentRect = editorDom.getBoundingClientRect();
+        viewportOffset = {
+          top: viewportRect.top - editorContentRect.top,
+          left: viewportRect.left - editorContentRect.left
+        };
+      }
+
+      // Get line height
+      const lineHeight = editorRef.current.getOption(52) || 20;
+
+      // Calculate absolute position accounting for editor position
+      const absoluteLeft = editorRect.left + viewportOffset.left + coordinates.left;
+      const absoluteTop = editorRect.top + viewportOffset.top + coordinates.top;
+
       return {
-        left: coordinates.left,
-        top: coordinates.top + coordinates.height
+        left: absoluteLeft,
+        top: absoluteTop,
+        height: lineHeight
       };
     } catch (error) {
       console.error("Failed to get cursor coordinates:", error);
@@ -1322,7 +1355,59 @@ const EditorPage = ({ theme, setTheme }) => {
         }
       }
     }
-  }, [showErrors]);  // Update editor's read-only state when user role changes
+  }, [showErrors]);
+
+  // Effect to extract errors from Monaco editor markers and update state
+  useEffect(() => {
+    if (!editorRef.current || !window.monaco) {
+      setExtractedErrors([]);
+      return;
+    }
+
+    const extractErrors = () => {
+      const model = editorRef.current.getModel();
+      if (!model) {
+        setExtractedErrors([]);
+        return;
+      }
+
+      try {
+        const errors = extractErrorsFromMarkers(model, window.monaco);
+        const sortedErrors = sortErrors(errors);
+        setExtractedErrors(sortedErrors);
+      } catch (err) {
+        console.error('Error extracting errors from markers:', err);
+        setExtractedErrors([]);
+      }
+    };
+
+    // Extract errors immediately
+    extractErrors();
+
+    // Also extract after a short delay to catch any delayed marker updates
+    const timer = setTimeout(extractErrors, 200);
+
+    // Listen for model changes to re-extract errors
+    const model = editorRef.current.getModel();
+    if (model) {
+      const disposable = model.onDidChangeContent(() => {
+        clearTimeout(timer);
+        setTimeout(extractErrors, 100);
+      });
+
+      return () => disposable.dispose();
+    }
+
+    return () => clearTimeout(timer);
+  }, [code, language, showErrors]);
+
+  // Handle error navigation when user clicks an error in the error panel
+  const handleErrorClick = (error) => {
+    if (!editorRef.current) return;
+    navigateToError(editorRef.current, error);
+  };
+  
+  // Update editor's read-only state when user role changes
   useEffect(() => {
     if (!editorRef.current) return;
     
@@ -1464,6 +1549,22 @@ const EditorPage = ({ theme, setTheme }) => {
 
   return (
     <>
+      {/* Render other users' cursors via portal at document root */}
+      {Object.values(cursorPositions).map((cursorData) => {
+        if (!cursorData.user || cursorData.user.id === currentUser?.id) return null;
+        
+        const position = getCursorCoordinates(cursorData.position);
+        if (!position) return null;
+        
+        return createPortal(
+          <UserCursor 
+            key={cursorData.user.id} 
+            user={cursorData.user} 
+            position={position}
+          />,
+          document.body
+        );
+      })}
       <Layout 
         theme={theme} 
         setTheme={setTheme} 
@@ -1629,14 +1730,16 @@ const EditorPage = ({ theme, setTheme }) => {
               </div>
             )}            <div className="editor-with-output">
               <div className="editor-code-pane">
-                <CodeEditor 
-                  language={language}
-                  code={code}
-                  setCode={setCode}
-                  theme={theme}
-                  showErrors={showErrors}
-                  handleEditorDidMount={handleEditorDidMount}
-                />
+                <div className="monaco-editor-wrapper">
+                  <CodeEditor 
+                    language={language}
+                    code={code}
+                    setCode={setCode}
+                    theme={theme}
+                    showErrors={showErrors}
+                    handleEditorDidMount={handleEditorDidMount}
+                  />
+                </div>
               </div>
               <div className={`editor-output-pane ${!showOutputPanel ? 'hidden' : ''}`}>
                 <CodeOutput 

@@ -1,0 +1,200 @@
+/* Enhanced Editor Layout with Error Panel */
+
+.editor-layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  gap: 12px;
+  padding: 0;
+  position: relative;
+}
+
+/* Main editor area */
+.editor-main-area {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  width: 100%;
+  position: relative;
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+}
+
+body.dark .editor-main-area {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* Monaco editor wrapper */
+.monaco-editor-wrapper {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.monaco-editor-wrapper .monaco-editor {
+  flex: 1;
+  width: 100%;
+}
+
+/* Error panel container */
+.error-panel-container {
+  flex: 0 0 auto;
+  width: 100%;
+  background: white;
+  border-top: 2px solid #e2e8f0;
+  padding: 12px 16px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+body.dark .error-panel-container {
+  background: #0f172a;
+  border-top-color: #334155;
+}
+
+/* Side-by-side layout for larger screens */
+@media (min-width: 1024px) {
+  .editor-with-panel-layout {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 16px;
+    height: 100%;
+    width: 100%;
+  }
+
+  .editor-panel-left {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .editor-panel-right {
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
+  body.dark .editor-panel-right {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    border-color: #334155;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+
+  .editor-panel-right .error-panel {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .editor-layout-container {
+    gap: 8px;
+    padding: 8px;
+  }
+
+  .error-panel-container {
+    padding: 8px 12px;
+    max-height: 300px;
+  }
+}
+
+/* Ensure error panel doesn't break layout */
+.error-panel-container .error-panel {
+  margin: 0;
+  border: none;
+  background: transparent;
+  box-shadow: none;
+}
+
+body.dark .error-panel-container .error-panel {
+  background: transparent;
+}
+
+/* Loading state for error panel */
+.error-panel-loading {
+  padding: 16px;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+body.dark .error-panel-loading {
+  color: #64748b;
+}
+
+/* Empty error panel */
+.error-panel-empty-state {
+  padding: 20px;
+  text-align: center;
+  border-radius: 8px;
+  background: rgba(16, 185, 129, 0.05);
+}
+
+body.dark .error-panel-empty-state {
+  background: rgba(16, 185, 129, 0.1);
+}
+
+.error-panel-empty-state p {
+  margin: 0;
+  color: #10b981;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+body.dark .error-panel-empty-state p {
+  color: #6ee7b7;
+}
+
+/* Highlight styles when error is clicked */
+.error-item-active {
+  background: #f0f9ff !important;
+  border-left-color: #0ea5e9 !important;
+}
+
+body.dark .error-item-active {
+  background: #164e63 !important;
+  border-left-color: #06b6d4 !important;
+}
+
+/* Ensure panel scrollBar is visible */
+.error-panel-container::-webkit-scrollbar {
+  width: 6px;
+}
+
+.error-panel-container::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.error-panel-container::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.error-panel-container::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+body.dark .error-panel-container::-webkit-scrollbar-thumb {
+  background: #475569;
+}
+
+body.dark .error-panel-container::-webkit-scrollbar-thumb:hover {
+  background: #64748b;
+}

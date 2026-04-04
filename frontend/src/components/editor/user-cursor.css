@@ -1,0 +1,156 @@
+/* User Cursor Styles - Improved Positioning and Visibility */
+
+.user-cursor-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  will-change: transform;
+  transition: all 0.05s ease-out;
+}
+
+/* Cursor Line - Main indicator */
+.cursor-line {
+  width: 1px;
+  min-height: 20px;
+  border-radius: 0;
+  opacity: 1;
+  animation: cursor-pulse 1.2s ease-in-out infinite;
+  transition: all 0.05s ease;
+}
+
+@keyframes cursor-pulse {
+  0% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scaleY(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+/* Cursor Label - Username Tag */
+.cursor-label {
+  padding: 4px 8px;
+  border-radius: 6px 6px 0 0;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  max-width: 120px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 0;
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: label-float 0.3s ease;
+  pointer-events: auto;
+  cursor: default;
+  user-select: none;
+  z-index: 1001;
+}
+
+@keyframes label-float {
+  0% {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.cursor-username {
+  display: block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Multi-User Cursor Stacking */
+.user-cursor-container:nth-child(1) {
+  z-index: 1000;
+}
+
+.user-cursor-container:nth-child(2) {
+  z-index: 999;
+}
+
+.user-cursor-container:nth-child(3) {
+  z-index: 998;
+}
+
+.user-cursor-container:nth-child(4) {
+  z-index: 997;
+}
+
+.user-cursor-container:nth-child(5) {
+  z-index: 996;
+}
+
+/* Hover effects for better visibility */
+.user-cursor-container:hover .cursor-line {
+  width: 1px;
+  opacity: 1;
+}
+
+.user-cursor-container:hover .cursor-label {
+  padding: 5px 10px;
+  font-size: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* Ensure cursor appears above editor content */
+.monaco-editor .user-cursor-container {
+  z-index: 1000 !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .cursor-line {
+    width: 1.5px;
+  }
+
+  .cursor-label {
+    padding: 3px 6px;
+    font-size: 10px;
+  }
+}
+
+/* Animation for cursor movement */
+@keyframes cursor-blink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0.3;
+  }
+}
+
+/* Optional: Add blink effect when not moving */
+.user-cursor-container.inactive .cursor-line {
+  animation: cursor-blink 1s ease-in-out;
+}
+
+/* Accessibility: Ensure cursors are visible in high contrast mode */
+@media (prefers-contrast: more) {
+  .cursor-line {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 3px;
+  }
+
+  .cursor-label {
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    font-weight: 700;
+  }
+}

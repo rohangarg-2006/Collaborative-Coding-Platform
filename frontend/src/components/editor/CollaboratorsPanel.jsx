@@ -452,7 +452,7 @@ const CollaboratorsPanel = ({ projectDetails, isAdmin = false, onClose, userRole
               />
             </div>
           </div>
-            <div className="space-y-3 overflow-y-auto pr-2 flex-1 collaborators-panel-scrollable" style={{ maxHeight: 'calc(100% - 50px)' }}>
+            <div className="space-y-3 overflow-y-auto pr-2 flex-1 collaborators-panel-scrollable" style={{ maxHeight: 'calc(100% - 20px)' }}>
             {collaborators.filter(collab => {
               if (!collab || !collab.user) return false;
               

@@ -1694,7 +1694,7 @@ const EditorPage = ({ theme, setTheme }) => {
             )}
           </div>
             <div className="editor-main w-full max-w-full flex-grow rounded-b-lg overflow-hidden shadow-lg border border-gray-200 dark:border-gray-700">
-              {/* Collaborators panel */}            {showCollaboratorsPanel && project && (              <div className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 h-[calc(100vh-220px)] overflow-hidden">
+              {/* Collaborators panel */}            {showCollaboratorsPanel && project && (              <div className="border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 h-[calc(100vh-150px)] overflow-hidden">
                 <ErrorBoundary fallback={
                   <div className="p-4 flex flex-col items-center justify-center">
                     <h3 className="text-lg font-medium text-red-600 dark:text-red-400 mb-3">

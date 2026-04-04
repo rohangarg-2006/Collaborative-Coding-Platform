@@ -6,8 +6,8 @@
 
 ## 📁 Project Structure
 
-- **`client/`** – Frontend (React + Vite)
-- **`server/`** – Backend (Node.js + Express)
+- **`frontend/`** – Frontend (React + Vite)
+- **`backend/`** – Backend (Node.js + Express)
 
 ---
 

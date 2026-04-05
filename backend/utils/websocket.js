@@ -4,12 +4,21 @@ const User = require('../models/User');
 const Project = require('../models/Project');
 const Session = require('../models/Session');
 const setupSocketHandlers = require('./socketHandlers');
+const { getAllowedOrigins, isOriginAllowed } = require('./corsOrigins');
 
 // WebSocket setup and handlers
 const setupWebsockets = (server) => {
+  const allowedOrigins = getAllowedOrigins();
+
   const io = socketIo(server, {
     cors: {
-      origin: process.env.CLIENT_URL || 'http://localhost:5173',
+      origin: (origin, callback) => {
+        if (isOriginAllowed(origin, allowedOrigins)) {
+          return callback(null, true);
+        }
+
+        return callback(new Error(`Socket CORS blocked for origin: ${origin}`));
+      },
       methods: ['GET', 'POST'],
       credentials: true
     }

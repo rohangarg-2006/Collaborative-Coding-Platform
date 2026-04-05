@@ -8,6 +8,7 @@ const cookieParser = require('cookie-parser');
 const connectDB = require('./config/db');
 const errorHandler = require('./middleware/error');
 const setupWebsockets = require('./utils/websocket');
+const { getAllowedOrigins, isOriginAllowed } = require('./utils/corsOrigins');
 
 // Load environment variables
 dotenv.config();
@@ -40,9 +41,17 @@ app.use(express.json());
 // Cookie parser
 app.use(cookieParser());
 
+const allowedOrigins = getAllowedOrigins();
+
 // Enable CORS
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    if (isOriginAllowed(origin, allowedOrigins)) {
+      return callback(null, true);
+    }
+
+    return callback(new Error(`CORS blocked for origin: ${origin}`));
+  },
   credentials: true
 }));
 

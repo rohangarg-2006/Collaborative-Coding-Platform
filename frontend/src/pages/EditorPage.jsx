@@ -1754,13 +1754,20 @@ const EditorPage = ({ theme, setTheme }) => {
                 onClick={() => setShowOutputPanel(prev => !prev)}
                 title={showOutputPanel ? "Hide Output Panel" : "Show Output Panel"}
               >
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style={{ 
-                  transition: 'all 0.3s ease',
-                  transform: showOutputPanel ? 'scale(0.85)' : 'scale(1)',
-                  marginRight: showOutputPanel ? '8px' : '0'
-                }}>
-                  <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8h16v10zM6 16h2v-2H6v2zm0-4h8v-2H6v2zm10 4h2v-2h-2v2zm-6 0h4v-2h-4v2z"/>
-                </svg>
+                <img
+                  src="/output-logo.png"
+                  alt="Output logo"
+                  style={{
+                    width: showOutputPanel ? '18px' : '100%',
+                    height: showOutputPanel ? '18px' : '100%',
+                    objectFit: 'cover',
+                    borderRadius: '50%',
+                    transition: 'all 0.3s ease',
+                    transform: showOutputPanel ? 'scale(0.85)' : 'scale(1)',
+                    marginRight: showOutputPanel ? '8px' : '0',
+                    display: 'block'
+                  }}
+                />
                 {showOutputPanel && (
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ 
                     opacity: 0.8

@@ -55,13 +55,13 @@ const AiChatbot = () => {
           src="/chatbot-logo.png"
           alt="AI Chatbot Logo"
           style={{
-            width: 38,
-            height: 38,
-            objectFit: 'contain',
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
             borderRadius: '50%',
             background: 'transparent',
             display: 'block',
-            boxShadow: '0 1.5px 4px rgba(0,0,0,0.08)',
+            boxShadow: 'none',
             transition: 'transform 0.32s cubic-bezier(.34,1.56,.64,1), box-shadow 0.22s',
             willChange: 'transform',
           }}

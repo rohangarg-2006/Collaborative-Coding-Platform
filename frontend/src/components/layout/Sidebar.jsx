@@ -4,6 +4,40 @@ import { useWebSocket } from '../../context/WebSocketContext';
 import { useAuth } from '../../context/AuthContext';
 import { ProjectService } from '../../utils/projectService';
 
+const extractUserId = (value) => {
+  if (!value) return null;
+  if (typeof value === 'string') return value;
+  return value._id || value.id || null;
+};
+
+const isGenericName = (name) => {
+  if (!name) return true;
+  const lowered = String(name).trim().toLowerCase();
+  return (
+    lowered === 'collaborator' ||
+    lowered.startsWith('collaborator-') ||
+    lowered.startsWith('collaborator ') ||
+    lowered === 'unknown user'
+  );
+};
+
+const getBestDisplayName = (user) => {
+  if (!user) return null;
+
+  const fullName = [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
+  if (fullName) return fullName;
+
+  if (user.name && !isGenericName(user.name)) return user.name;
+  if (user.username) return user.username;
+
+  if (user.email) {
+    const emailPrefix = String(user.email).split('@')[0];
+    if (emailPrefix) return emailPrefix;
+  }
+
+  return null;
+};
+
 // Helper function to generate a virtual session for display
 const generateVirtualSession = (projectId, currentUser, projectCollaborators = []) => {
   // Use real collaborators if available, otherwise use fallback names
@@ -15,7 +49,7 @@ const generateVirtualSession = (projectId, currentUser, projectCollaborators = [
       .slice(0, Math.min(3, projectCollaborators.length)) // Take up to 3 collaborators
       .map(collab => ({
         userId: collab.user?._id || collab.user,
-        name: collab.user?.name || `Collaborator-${collab.role}`,
+        name: getBestDisplayName(collab.user) || `Collaborator-${collab.role}`,
         joinedAt: new Date(Date.now() - Math.random() * 3600000).toISOString(),
         role: collab.role
       }));
@@ -86,11 +120,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   }, [projectId]);
   
   // Helper function to get user name from collaborators list
-  const getCollaboratorName = (userId) => {
+  const getCollaboratorName = (userId, sessionName = null) => {
     if (!userId) return 'Unknown User';
+
+    if (sessionName && !isGenericName(sessionName)) {
+      return sessionName;
+    }
     
     // If it's the current user
-    if (userId === currentUser?.id) return currentUser.name || 'You';
+    if (userId === currentUser?.id) {
+      return getBestDisplayName(currentUser) || 'You';
+    }
     
     // Try to find matching collaborator
     const matchingCollaborator = collaborators.find(collab => {
@@ -99,13 +139,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
     });
     
     if (matchingCollaborator) {
-      return matchingCollaborator.user?.name || 'Collaborator';
+      return getBestDisplayName(matchingCollaborator.user) || 'Collaborator';
     }
     
     // Check active websocket users
-    const wsUser = activeUsers.find(u => u.id?.toString() === userId?.toString());
+    const wsUser = activeUsers.find(u => extractUserId(u)?.toString() === userId?.toString());
     if (wsUser) {
-      return wsUser.name || wsUser.email || `User-${userId.toString().slice(0,5)}`;
+      return getBestDisplayName(wsUser) || `User-${userId.toString().slice(0,5)}`;
     }
     
     return `User-${userId.toString().slice(0,5)}`;
@@ -328,7 +368,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                     const userColor = getUserColor(userId);
                     
                     // Get name from collaborators if possible
-                    const userName = getCollaboratorName(userId);
+                    const userName = getCollaboratorName(userId, user.name);
                     
                     // Find user role
                     const matchingCollaborator = collaborators.find(collab => {
@@ -374,7 +414,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
                 <ul className="space-y-2">
                   {collaborators.map((collab, index) => {
                     const collabId = collab.user?._id || collab.user;
-                    const collabName = collab.user?.name || `Collaborator ${index + 1}`;
+                    const collabName = getBestDisplayName(collab.user) || `User-${String(collabId || index).slice(0, 5)}`;
                     const isActive = currentSession?.activeUsers?.some(user => {
                       const userId = user.userId?._id || user.userId;
                       return userId?.toString() === collabId?.toString();

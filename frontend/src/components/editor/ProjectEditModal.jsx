@@ -42,7 +42,7 @@ const ProjectEditModal = ({ isOpen, onClose, project, onProjectUpdate }) => {  c
       onProjectUpdate(updatedProject);
       onClose();
     } catch (err) {
-      setError(err.message || 'Failed to update project');
+      setError(typeof err === 'string' ? err : (err?.message || 'Failed to update project'));
     } finally {
       setLoading(false);
     }
@@ -108,9 +108,9 @@ const ProjectEditModal = ({ isOpen, onClose, project, onProjectUpdate }) => {  c
               onChange={handleChange}
               className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:text-white"
             >
-              {Object.keys(LANGUAGES).map(lang => (
-                <option key={lang} value={lang}>
-                  {LANGUAGES[lang].label}
+              {Array.isArray(LANGUAGES) && LANGUAGES.map((lang) => (
+                <option key={lang.value} value={lang.value}>
+                  {lang.label}
                 </option>
               ))}
             </select>

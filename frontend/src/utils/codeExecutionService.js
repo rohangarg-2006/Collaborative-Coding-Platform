@@ -1,108 +1,126 @@
-/**
- * CodeExecutionService - Handles local and remote code execution
- */
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
 
-// Language IDs/names for different APIs (for future use when APIs are working)
-export const LANGUAGE_IDS = {
-  // Judge0 API
-  judge0: {
-    javascript: 63,  // Node.js
-    python: 71,      // Python 3
-    java: 62,        // Java 
-    cpp: 54,         // C++
-    c: 50,           // C
-    csharp: 51,      // C#
-    php: 68,         // PHP
-    ruby: 72,        // Ruby
-    go: 60,          // Go
-    rust: 73,        // Rust
-  },
-  
-  // JDoodle API language values
-  jdoodle: {
-    javascript: "nodejs",
-    python: "python3",
-    java: "java",
-    cpp: "cpp17", 
-    c: "c",
-    csharp: "csharp",
-    php: "php",
-    ruby: "ruby",
-    go: "go",
-    rust: "rust",
+const normalizeLanguage = (language) => {
+  const safe = (language || 'javascript').toLowerCase();
+  if (safe === 'cpp') return 'c++';
+  if (safe === 'js') return 'javascript';
+  if (safe === 'py') return 'python';
+  return safe;
+};
+
+const parseErrorPayload = async (response) => {
+  try {
+    const data = await response.json();
+    return data?.error || data?.message || data?.data?.message || JSON.stringify(data);
+  } catch {
+    try {
+      return await response.text();
+    } catch {
+      return '';
+    }
   }
 };
 
-// CODE EXECUTION MODES - Only using LOCAL mode now
-const EXECUTION_MODES = {
-  LOCAL: 'local',     // Advanced local execution with code parsing
+const buildAuthHeaders = () => {
+  const headers = {
+    'Content-Type': 'application/json',
+  };
+
+  const token = localStorage.getItem('token');
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  return headers;
 };
 
-// Always use LOCAL mode
-const currentExecutionMode = EXECUTION_MODES.LOCAL;
+export const executeCodeWithLocalRuntime = async (
+  language,
+  version = '*',
+  sourceCode = '',
+  options = {}
+) => {
+  const payload = {
+    language: normalizeLanguage(language),
+    version: version || '*',
+    files: [{ content: sourceCode || '' }],
+  };
 
-/**
- * Execute code locally using our in-browser execution engine
- * This doesn't rely on any external APIs and works offline
- * 
- * @param {string} code - The source code to execute
- * @param {string} language - The programming language
- * @param {string} input - Standard input for the program (optional)
- * @returns {Promise} - Promise with execution result
- */
+  if (typeof options.stdin === 'string') payload.stdin = options.stdin;
+  if (Array.isArray(options.args)) payload.args = options.args;
+  if (typeof options.compile_timeout === 'number') payload.compile_timeout = options.compile_timeout;
+  if (typeof options.run_timeout === 'number') payload.run_timeout = options.run_timeout;
+  if (typeof options.compile_memory_limit === 'number') payload.compile_memory_limit = options.compile_memory_limit;
+  if (typeof options.run_memory_limit === 'number') payload.run_memory_limit = options.run_memory_limit;
+
+  const response = await fetch(`${API_BASE_URL}/execution/execute`, {
+    method: 'POST',
+    headers: buildAuthHeaders(),
+    body: JSON.stringify(payload),
+  });
+
+  if (response.status === 401) {
+    throw new Error('Unauthorized (401): Please login again.');
+  }
+
+  if (response.status === 429) {
+    throw new Error('Rate Limited (429): Too many requests, please retry shortly.');
+  }
+
+  if (!response.ok) {
+    const detail = await parseErrorPayload(response);
+    throw new Error(`Execution failed (${response.status})${detail ? `: ${detail}` : ''}`);
+  }
+
+  const json = await response.json();
+  const data = json?.data || {};
+  const run = data?.run || {};
+
+  return {
+    language: data?.language || normalizeLanguage(language),
+    version: data?.version || version || '*',
+    stdout: run.stdout || '',
+    stderr: run.stderr || '',
+    run,
+    compile: data?.compile || null,
+    raw: data,
+  };
+};
+
 export const executeCode = async (code, language, input = '') => {
   try {
-    console.log(`Executing ${language} code using advanced local execution...`);
-    
-    // Create a small delay to simulate execution time
-    await new Promise(resolve => setTimeout(resolve, 500));
-    
-    // Validate inputs to prevent errors
-    const safeCode = code || ''; 
-    const safeLang = language || 'javascript';
-    const safeInput = input || '';
-    
-    // Always execute code with the local execution engine for reliability
-    const result = await localExecuteCode(safeCode, safeLang, safeInput);
-    
-    // Ensure result is always a valid object with expected properties
+    const result = await executeCodeWithLocalRuntime(language, '*', code || '', {
+      stdin: input || '',
+    });
+
+    const run = result.run || {};
+
     return {
-      output: result?.output || '',
-      error: result?.error || '',
-      exitCode: result?.exitCode || 0,
-      executionTime: result?.executionTime || result?.time || 0,
-      memory: result?.memory || 0,
-      status: result?.status || { id: 3, description: 'Success' }
+      output: result.stdout,
+      error: result.stderr,
+      stdout: result.stdout,
+      stderr: result.stderr,
+      exitCode: typeof run.code === 'number' ? run.code : 0,
+      executionTime: run.time || 0,
+      memory: run.memory || 0,
+      status:
+        typeof run.code === 'number' && run.code !== 0
+          ? { id: 4, description: 'Error' }
+          : { id: 3, description: 'Completed' },
     };
   } catch (error) {
-    console.error(`Code execution error:`, error);
-    
-    // Return a user-friendly error
+    const message = error?.message || 'Unable to execute code.';
+
     return {
-      output: 'The code execution system encountered an issue.',
-      error: '',
-      exitCode: 0,
+      output: '',
+      error: message,
+      stdout: '',
+      stderr: message,
+      exitCode: 1,
       executionTime: 0,
       memory: 0,
-      status: {
-        id: 3,
-        description: 'Execution Completed'
-      }
+      status: { id: 4, description: 'Error' },
     };
   }
 };
 
-// Import all needed functions from languageExecutors
-import { 
-  executeJavaScript,
-  executePython,
-  executeJava,
-  executeCpp,
-  executeGeneric,
-  localExecuteCode,
-  mockExecution,
-  getExampleCode
-} from './languageExecutors';
-
-// Re-export functions needed by components
-export { mockExecution, getExampleCode };

@@ -24,6 +24,7 @@ const projectRoutes = require('./routes/projects');
 const sessionRoutes = require('./routes/sessions');
 const adminRoutes = require('./routes/admin');
 const aiRoutes = require('./routes/ai');
+const executionRoutes = require('./routes/execution');
 
 const app = express();
 
@@ -51,6 +52,7 @@ app.use('/api/v1/projects', projectRoutes);
 app.use('/api/v1/sessions', sessionRoutes);
 app.use('/api/v1/admin', adminRoutes);
 app.use('/api/v1/ai', aiRoutes);
+app.use('/api/v1/execution', executionRoutes);
 
 // Development only routes
 if (process.env.NODE_ENV === 'development') {

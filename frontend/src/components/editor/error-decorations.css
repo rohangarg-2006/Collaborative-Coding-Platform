@@ -379,6 +379,39 @@ body.dark .monaco-editor .error-line {
   line-height: 0 !important;
 }
 
+.monaco-editor.ace_editor .ace_tooltip {
+  z-index: 10000 !important;
+  max-width: 520px !important;
+  white-space: pre-wrap !important;
+  background: rgba(20, 25, 35, 0.97) !important;
+  color: #f8fafc !important;
+  border: 1px solid rgba(148, 163, 184, 0.45) !important;
+  border-radius: 8px !important;
+  padding: 8px 10px !important;
+}
+
+.monaco-editor.ace_editor .ace_gutter-cell.ace_error,
+.monaco-editor.ace_editor .ace_gutter-cell.ace_warning,
+.monaco-editor.ace_editor .ace_gutter-cell.ace_info {
+  color: #f8fafc !important;
+}
+
+.editor-annotation-tooltip {
+  position: absolute;
+  z-index: 12000;
+  max-width: 520px;
+  white-space: pre-wrap;
+  background: rgba(20, 25, 35, 0.97);
+  color: #f8fafc;
+  border: 1px solid rgba(148, 163, 184, 0.45);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 13px;
+  line-height: 1.35;
+  pointer-events: none;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+}
+
 body.dark .monaco-editor .error-message {
   display: none !important;
   color: transparent !important;

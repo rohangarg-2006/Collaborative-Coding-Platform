@@ -1,6 +1,9 @@
 // Gemini Service - Prioritizes reliability with fallback answers
 import FALLBACK_ANSWERS from './fallbackAnswers';
 
+const API_BASE_URL = (import.meta.env.VITE_API_URL || '/api/v1').replace(/\/$/, '');
+const AI_CHAT_ENDPOINT = `${API_BASE_URL}/ai/chat`;
+
 // Helper function to find fallback answer based on keywords
 const getFallbackAnswer = (prompt) => {
   if (!prompt || !prompt.trim()) {
@@ -40,7 +43,7 @@ const geminiService = {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
 
-        const response = await fetch('/api/v1/ai/chat', {
+        const response = await fetch(AI_CHAT_ENDPOINT, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -85,7 +88,7 @@ const geminiService = {
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 5000);
 
-      const response = await fetch('/api/v1/ai/chat', {
+      const response = await fetch(AI_CHAT_ENDPOINT, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

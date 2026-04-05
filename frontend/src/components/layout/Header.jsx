@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 const Header = ({ 
@@ -14,6 +14,13 @@ const Header = ({
   languages = []
 }) => {  const { currentUser, logout, isAuthenticated } = useAuth();
   const navigate = useNavigate();
+  const { projectId } = useParams();
+  const isExistingProject = Boolean(projectId);
+
+  const selectedLanguageLabel =
+    Array.isArray(languages) && languages.length > 0
+      ? (languages.find((lang) => lang.value === language)?.label || language)
+      : language;
 
   const handleLogout = async () => {
     await logout();
@@ -119,7 +126,7 @@ const Header = ({
                 </svg>
               </button>
             </div>
-          </div>        )}        {language !== undefined && setLanguage && languages && languages.length > 0 && (
+          </div>        )}        {language !== undefined && setLanguage && languages && languages.length > 0 && !isExistingProject && (
           <div className="relative group">
             <div className="flex items-center space-x-1">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
@@ -188,6 +195,22 @@ const Header = ({
             </div>
             <div id="language-change-tooltip" className="absolute -bottom-9 left-0 right-0 bg-gradient-to-r from-purple-600 to-indigo-600 text-white text-xs py-1 px-3 rounded-full opacity-0 transition-opacity duration-300 text-center font-medium shadow-md">
               Changed language
+            </div>
+          </div>
+        )}
+
+        {language !== undefined && languages && languages.length > 0 && isExistingProject && (
+          <div className="relative group">
+            <div className="flex items-center space-x-1">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-indigo-300" viewBox="0 0 20 20" fill="currentColor">
+                <path fillRule="evenodd" d="M12.316 3.051a1 1 0 01.633 1.265l-4 12a1 1 0 11-1.898-.632l4-12a1 1 0 011.265-.633zM5.707 6.293a1 1 0 010 1.414L3.414 10l2.293 2.293a1 1 0 11-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0zm8.586 0a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 11-1.414-1.414L16.586 10l-2.293-2.293a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+              <div
+                className="rounded-full px-3 py-1.5 bg-indigo-700/40 text-white font-medium shadow-md text-sm border border-indigo-300/60"
+                title="Language is controlled from project edit settings"
+              >
+                {selectedLanguageLabel}
+              </div>
             </div>
           </div>
         )}

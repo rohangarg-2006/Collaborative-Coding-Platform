@@ -8,9 +8,9 @@ const AiContext = createContext();
 export { AiContext };
 
 export const AiProvider = ({ children }) => {
-  // The API key is hardcoded - using the Google API key for Gemini
-  const [apiKey, setApiKey] = useState('AIzaSyBhkHZTQuogLk4NVVQNvofBhmX39GjcGW8');
-  const [isApiKeySet, setIsApiKeySet] = useState(true); // Always true when hardcoded
+  const envApiKey = import.meta.env.VITE_GEMINI_API_KEY || '';
+  const [apiKey, setApiKey] = useState(envApiKey);
+  const [isApiKeySet, setIsApiKeySet] = useState(Boolean(envApiKey));
 
   // If you want to change the API key for any reason
   const saveApiKey = (key) => {
@@ -25,15 +25,14 @@ export const AiProvider = ({ children }) => {
   
   // Reset API key if needed
   const resetApiKey = () => {
-    setApiKey('AIzaSyBhkHZTQuogLk4NVVQNvofBhmX39GjcGW8'); // Reset to default with new API key
-    setIsApiKeySet(true);
-    console.log('API key has been reset to default');
+    setApiKey(envApiKey);
+    setIsApiKeySet(Boolean(envApiKey));
+    console.log('API key has been reset from environment');
   };
   
   // Set the API key when component mounts
   useEffect(() => {
-    // We always have an API key set since it's hardcoded
-    setIsApiKeySet(true);
+    setIsApiKeySet(Boolean(apiKey));
     console.log('AiContext initialized with API key:');
     console.log('API key length:', apiKey?.length);
     // Validate the API key format (should be a string of reasonable length)

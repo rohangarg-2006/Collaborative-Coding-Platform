@@ -64,7 +64,7 @@ const EditorPage = ({ theme, setTheme }) => {
   const [chatMessages, setChatMessages] = useState([]);
   const [chatInput, setChatInput] = useState("");  const [showUnsavedChanges, setShowUnsavedChanges] = useState(false);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
-  const [userRole, setUserRole] = useState('viewer'); // Default role is viewer
+  const [userRole, setUserRole] = useState(projectId ? 'viewer' : 'editor'); // Normal editor should be writable by default
   const [isAdmin, setIsAdmin] = useState(false); // Is the current user an admin?
   const [showCollaboratorsPanel, setShowCollaboratorsPanel] = useState(false);
   const [accessNotification, setAccessNotification] = useState('');
@@ -1737,6 +1737,7 @@ const EditorPage = ({ theme, setTheme }) => {
                     setCode={setCode}
                     theme={theme}
                     showErrors={showErrors}
+                    userRole={userRole}
                     handleEditorDidMount={handleEditorDidMount}
                   />
                 </div>

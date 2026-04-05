@@ -1,8 +1,21 @@
 import { io } from 'socket.io-client';
 import AuthService from './authService';
 
-// WebSocket API URL
-const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const normalizeSocketUrl = (rawUrl) => {
+  try {
+    const parsed = new URL(rawUrl);
+    return `${parsed.protocol}//${parsed.host}`;
+  } catch {
+    return String(rawUrl || 'http://localhost:5000')
+      .replace(/\/api\/v\d+\/?$/i, '')
+      .replace(/\/+$/, '');
+  }
+};
+
+// Prefer explicit socket env vars, otherwise derive from API URL.
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || normalizeSocketUrl(API_URL);
+const SOCKET_PATH = import.meta.env.VITE_SOCKET_PATH || '/socket.io';
 
 // Initialize socket connection - null until connect is called
 let socket = null;
@@ -20,6 +33,7 @@ const WebSocketService = {
     
     // Create socket connection with auth token
     socket = io(SOCKET_URL, {
+      path: SOCKET_PATH,
       auth: { token },
       transports: ['websocket', 'polling'],
       withCredentials: true,

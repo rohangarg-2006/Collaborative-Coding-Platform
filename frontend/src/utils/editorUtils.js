@@ -433,7 +433,16 @@ const detectLanguageErrors = (code, language, patterns, monaco) => {
         
         errors.push({
           message,
-          severity: monaco.MarkerSeverity.fromValue(severity) || monaco.MarkerSeverity.Error,
+          severity:
+            (typeof monaco.MarkerSeverity?.fromValue === 'function'
+              ? monaco.MarkerSeverity.fromValue(severity)
+              : (severity === monaco.MarkerSeverity?.Warning
+                  ? monaco.MarkerSeverity.Warning
+                  : severity === monaco.MarkerSeverity?.Info
+                    ? monaco.MarkerSeverity.Info
+                    : severity === monaco.MarkerSeverity?.Hint
+                      ? monaco.MarkerSeverity.Hint
+                      : monaco.MarkerSeverity?.Error)) || monaco.MarkerSeverity.Error,
           startLineNumber: lineNumber,
           startColumn: columnNumber,
           endLineNumber: lineNumber,
@@ -525,7 +534,16 @@ export const detectBasicErrors = (code, language, monaco) => {
         
         errors.push({
           message,
-          severity: monaco.MarkerSeverity.fromValue(severity) || monaco.MarkerSeverity.Error,
+          severity:
+            (typeof monaco.MarkerSeverity?.fromValue === 'function'
+              ? monaco.MarkerSeverity.fromValue(severity)
+              : (severity === monaco.MarkerSeverity?.Warning
+                  ? monaco.MarkerSeverity.Warning
+                  : severity === monaco.MarkerSeverity?.Info
+                    ? monaco.MarkerSeverity.Info
+                    : severity === monaco.MarkerSeverity?.Hint
+                      ? monaco.MarkerSeverity.Hint
+                      : monaco.MarkerSeverity?.Error)) || monaco.MarkerSeverity.Error,
           startLineNumber: lineNumber,
           startColumn: columnNumber,
           endLineNumber: lineNumber,
@@ -1225,6 +1243,12 @@ export const configureLanguageValidation = (monaco, language, showErrors) => {
  */
 const setupLanguageConfiguration = (monaco, language) => {
   if (!monaco || !monaco.languages) return;
+
+  // Ace integration can provide a lightweight Monaco stub without IndentAction.
+  const indentAction = monaco.languages.IndentAction || {
+    None: 0,
+    IndentOutdent: 0,
+  };
   
   // Define language-specific configurations
   const languageConfigs = {
@@ -1271,19 +1295,19 @@ const setupLanguageConfiguration = (monaco, language) => {
         {
           beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
           afterText: /^\s*\*\/$/,
-          action: { indentAction: monaco.languages.IndentAction.IndentOutdent, appendText: ' * ' }
+          action: { indentAction: indentAction.IndentOutdent, appendText: ' * ' }
         },
         {
           beforeText: /^\s*\/\*\*(?!\/)([^\*]|\*(?!\/))*$/,
-          action: { indentAction: monaco.languages.IndentAction.None, appendText: ' * ' }
+          action: { indentAction: indentAction.None, appendText: ' * ' }
         },
         {
           beforeText: /^(\t|(\ \ ))*\ \*(\ ([^\*]|\*(?!\/))*)?$/,
-          action: { indentAction: monaco.languages.IndentAction.None, appendText: '* ' }
+          action: { indentAction: indentAction.None, appendText: '* ' }
         },
         {
           beforeText: /^(\t|(\ \ ))*\ \*\/\s*$/,
-          action: { indentAction: monaco.languages.IndentAction.None, removeText: 1 }
+          action: { indentAction: indentAction.None, removeText: 1 }
         }
       ]
     }

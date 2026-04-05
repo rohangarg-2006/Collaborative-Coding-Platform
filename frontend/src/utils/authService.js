@@ -1,7 +1,9 @@
 import axios from 'axios';
 
 // API base URL from environment variable or fallback
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const RENDER_API_URL = 'https://collaborative-coding-platform-backend-h8dn.onrender.com/api/v1';
+const LOCAL_API_URL = 'http://localhost:5000/api/v1';
+const API_URL = import.meta.env.VITE_API_URL || RENDER_API_URL || LOCAL_API_URL;
 
 // Create axios instance with credentials
 const api = axios.create({

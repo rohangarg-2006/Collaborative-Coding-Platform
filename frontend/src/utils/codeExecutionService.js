@@ -1,4 +1,6 @@
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
+const RENDER_API_URL = 'https://collaborative-coding-platform-backend-h8dn.onrender.com/api/v1';
+const LOCAL_API_URL = 'http://localhost:5000/api/v1';
+const API_BASE_URL = import.meta.env.VITE_API_URL || RENDER_API_URL || LOCAL_API_URL;
 
 const normalizeLanguage = (language) => {
   const safe = (language || 'javascript').toLowerCase();

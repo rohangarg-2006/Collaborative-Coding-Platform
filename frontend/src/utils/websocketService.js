@@ -6,15 +6,19 @@ const normalizeSocketUrl = (rawUrl) => {
     const parsed = new URL(rawUrl);
     return `${parsed.protocol}//${parsed.host}`;
   } catch {
-    return String(rawUrl || 'http://localhost:5000')
+    return String(rawUrl || 'https://collaborative-coding-platform-backend-h8dn.onrender.com' || 'http://localhost:5000')
       .replace(/\/api\/v\d+\/?$/i, '')
       .replace(/\/+$/, '');
   }
 };
 
 // Prefer explicit socket env vars, otherwise derive from API URL.
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api/v1';
-const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || normalizeSocketUrl(API_URL);
+const RENDER_API_URL = 'https://collaborative-coding-platform-backend-h8dn.onrender.com/api/v1';
+const LOCAL_API_URL = 'http://localhost:5000/api/v1';
+const RENDER_SOCKET_URL = 'https://collaborative-coding-platform-backend-h8dn.onrender.com';
+const LOCAL_SOCKET_URL = 'http://localhost:5000';
+const API_URL = import.meta.env.VITE_API_URL || RENDER_API_URL || LOCAL_API_URL;
+const SOCKET_URL = import.meta.env.VITE_SOCKET_URL || normalizeSocketUrl(API_URL) || RENDER_SOCKET_URL || LOCAL_SOCKET_URL;
 const SOCKET_PATH = import.meta.env.VITE_SOCKET_PATH || '/socket.io';
 
 // Initialize socket connection - null until connect is called

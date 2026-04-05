@@ -10,20 +10,15 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.7.2",
-    "@monaco-editor/react": "^4.7.0",
     "ace-builds": "^1.43.6",
     "axios": "^1.9.0",
-    "monaco-editor": "^0.48.0",
-    "node-fetch": "^3.3.2",
     "prop-types": "^15.8.1",
     "react": "^19.1.0",
     "react-ace": "^14.0.1",
     "react-dom": "^19.1.0",
     "react-markdown": "^10.1.0",
     "react-router-dom": "^7.6.0",
-    "socket.io-client": "^4.8.1",
-    "temp-write": "^6.0.0"
+    "socket.io-client": "^4.8.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",

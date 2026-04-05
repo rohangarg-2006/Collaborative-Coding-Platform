@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 // Pages
@@ -54,12 +54,14 @@ const AppRouter = () => {
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
-        <Route path="/" element={<HomePage theme={theme} setTheme={setTheme} isAuthenticated={isAuthenticated} />} />        <Route path="/about" element={<AboutPage theme={theme} setTheme={setTheme} />} />
+        <Route path="/" element={<HomePage theme={theme} setTheme={setTheme} isAuthenticated={isAuthenticated} />} />
+        <Route path="/about" element={<AboutPage theme={theme} setTheme={setTheme} />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
         <Route path="/reset-password/:token" element={<ResetPassword />} />
-          {/* Protected Routes */}<Route element={<PrivateRoute />}>
+        {/* Protected Routes */}
+        <Route element={<PrivateRoute />}>
           <Route path="/editor" element={<EditorPage theme={theme} setTheme={setTheme} />} />
           <Route path="/editor/:projectId" element={<EditorPage theme={theme} setTheme={setTheme} />} />
           <Route path="/profile" element={<UserProfilePage theme={theme} setTheme={setTheme} />} />

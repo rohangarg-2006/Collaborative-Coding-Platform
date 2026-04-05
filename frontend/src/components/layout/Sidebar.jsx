@@ -95,13 +95,13 @@ const generateVirtualSession = (projectId, currentUser, projectCollaborators = [
 const Sidebar = ({ sidebarOpen, setSidebarOpen }) => {
   const { projectId } = useParams();
   const { currentUser } = useAuth();
-  const { activeUsers, isConnected } = useWebSocket();
+  const { activeUsers } = useWebSocket();
   const [activeTab, setActiveTab] = useState('participants');
   const [sessions, setSessions] = useState([]);
   const [currentSession, setCurrentSession] = useState(null);
   const [loading, setLoading] = useState(false);
   const [collaborators, setCollaborators] = useState([]);
-
+  const isConnected=true;
   // Fetch project collaborators
   useEffect(() => {
     if (projectId) {

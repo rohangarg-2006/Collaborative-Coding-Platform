@@ -1,79 +1,105 @@
-# 🧑‍💻 CodeCollab – Collaborative Coding Platform
+# 🧑‍💻 CodeCollab - Collaborative Coding Platform
 
-**CodeCollab** is a real-time collaborative coding platform built for developers, learners, interviewers, and teams to write, share, and edit code together with ease. The platform supports multiple programming languages, role-based access, live chat, and AI assistance — all inside a responsive and elegant UI.
+CodeCollab is a real-time collaborative coding platform where developers, learners, interviewers, and teams can write, edit, and discuss code together.
 
----
+It supports live editing, role-based collaboration, chat, and AI-assisted help in a responsive web interface.
+
+## 🌐 Live Demo
+
+- Deployed App: https://collaborative-coding-platform-li35.onrender.com/
+
+## 🚀 Highlights
+
+- 👨‍💻 Real-time collaborative code editing
+- 🛡️ Role-based access (Admin, Editor, Viewer)
+- 🗂️ Project management (create, rename, edit, delete)
+- 👥 Invite collaborators using project invite codes
+- 🌐 Multi-language editor support (JavaScript, Python, C++, Java, TypeScript, C#, Go, PHP, Ruby, Rust, and more)
+- 🧠 AI assistant (Gemini) for coding help
+- 📥 Download code in language-appropriate file formats
+- 📱 Responsive UI for desktop and mobile
+
+## 🧰 Tech Stack
+
+- Frontend: React, Vite, Tailwind CSS, Monaco Editor
+- Backend: Node.js, Express, MongoDB, Socket.IO
+- Authentication: JWT
+- Real-time: WebSockets (Socket.IO)
 
 ## 📁 Project Structure
 
-- **`frontend/`** – Frontend (React + Vite)
-- **`backend/`** – Backend (Node.js + Express)
+```text
+.
+|-- frontend/   # React + Vite client
+`-- backend/    # Node.js + Express API and realtime services
+```
 
----
+## 🔧 Prerequisites
 
-## 🚀 Features
+- Node.js (LTS recommended)
+- npm
+- MongoDB (local instance or MongoDB Atlas)
 
-✨ CodeCollab offers a powerful set of features for real-time collaboration and productivity:
-- 🔐 **Sign up and Log in** securely using JWT-based authentication  
-- 🧠 **AI Assistant (Gemini)** to help with code-related queries in real time  
-- 👨‍💻 **Collaborative Code Editing** using the Monaco Editor with live syncing  
-- 🌐 **Multiple Language Support** – Write code in JavaScript, Python, C++, Java, TypeScript, C#, Go, PHP, Ruby, Rust, and more  
-- 🗂️ **Project Management** – Create, rename, edit, and delete projects with ease  
-- 👥 **Invite Collaborators** to join public projects via unique invite codes  
-- 🛡️ **Role-Based Access** – Assign users as Admins, Editors, or Viewers to control permissions  
-- 📥 **Download Code** anytime in the correct file format for the selected language  
-- 📱 **Fully Responsive UI** designed with Tailwind CSS for seamless use on all devices
-
-🧪 Whether you're preparing for interviews, doing pair programming, mentoring juniors, or building together — CodeCollab makes it fast, easy, and fun.
-
----
-
-## Tech Stack
-
-- **Frontend**: React, Vite, Tailwind CSS, Monaco Editor
-- **Backend**: Node.js, Express, MongoDB, Socket.IO
-- **Authentication**: JWT
-- **Real-time**: WebSockets (Socket.IO)
-
----
-
-## 💻 Setup, Installation & Running the App
+## 💻 Local Setup
 
 ### 1. Clone the repository
 
-```sh
+```bash
 git clone https://github.com/yourusername/codecollab.git
 cd codecollab
 ```
 
-### 2. Setup the Server
+### 2. Install backend dependencies
 
-```sh
-cd server
+```bash
+cd backend
 npm install
-# Copy .env.example to .env and set your environment variables
+```
+
+### 3. Configure backend environment
+
+Create a .env file in the backend folder and add required variables (for example, database connection, JWT secret, and port).
+
+### 4. Start backend server
+
+```bash
 npm start
 ```
 
-- The server runs on `http://localhost:5000` by default.
+Backend default URL: http://localhost:5000
 
-### 3. Setup the Client
+### 5. Install frontend dependencies
 
-```sh
-cd ../client
+Open a new terminal:
+
+```bash
+cd frontend
 npm install
-# Copy .env.example to .env and set VITE_API_URL if needed
+```
+
+### 6. Configure frontend environment
+
+Create a .env file in the frontend folder and set API base URL if needed (for example, VITE_API_URL).
+
+### 7. Start frontend app
+
+```bash
 npm run dev
 ```
 
-- The client runs on `http://localhost:5173` by default.
-  
----
+Frontend default URL: http://localhost:5173
 
-## 🔧 Prerequisites
+## 🧪 Typical Use Cases
 
-- Node.js and npm installed  
-- MongoDB (running locally or use MongoDB Atlas)
+- 🤝 Pair programming and team collaboration
+- 🎯 Interview practice and live coding rounds
+- 🎓 Mentoring and classroom coding sessions
+- ⚡ Rapid prototyping with shared editing
+
+## 📝 Notes
+
+- Keep backend and frontend running in separate terminals during local development.
+- Ensure CORS and environment variables are configured correctly for local and deployed environments.
 
 
 
